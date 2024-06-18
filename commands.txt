@@ -1,0 +1,7 @@
+#build the app
+ng new ssr --no-standalone --routing --ssr=true --style=scss
+
+npm install primeng
+npm install primeicons
+
+npm i nocache
