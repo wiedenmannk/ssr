@@ -1,0 +1,43 @@
+/* src/styles.scss */
+
+/* src/styles.scss */
+
+/* Grundlegendes Styling für das Logo */
+.logo {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Styling für die Menubar */
+.ui-menubar {
+  .ui-menubar-root-list {
+    .ui-menuitem-link {
+      font-size: 1rem; /* Standard-Schriftgröße */
+    }
+  }
+}
+
+
+/* Responsive Schriftgrößen */
+@media (max-width: 768px) {
+  .ui-menubar .ui-menubar-root-list .ui-menuitem-link {
+    font-size: 0.9rem; /* Kleinere Schriftgröße für kleinere Bildschirme */
+  }
+}
+
+@media (max-width: 480px) {
+  .ui-menubar .ui-menubar-root-list .ui-menuitem-link {
+    font-size: 0.8rem; /* Noch kleinere Schriftgröße für sehr kleine Bildschirme */
+  }
+}
+
+@media (max-width: 400px) {
+  .logo {
+    display: none; /* Logo ausblenden bei Bildschirmen kleiner als 400px */
+  }
+
+  .ui-menubar .ui-menubar-root-list .ui-menuitem-link {
+    font-size: 0.7rem; /* Noch kleinere Schriftgröße für sehr kleine Bildschirme */
+    color: red;
+  }
+}
