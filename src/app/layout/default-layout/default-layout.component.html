@@ -1,7 +1,10 @@
 <p-menubar [model]="items">
   <ng-template pTemplate="start">
     <a href="/">
-      <img src="img/Selbstboss_60x60px.svg" alt="Logo" class="logo">
+      <img src="img/Selbstboss_60x60px.svg" alt="Logo" class="logo" />
     </a>
   </ng-template>
 </p-menubar>
+<main>
+  <router-outlet></router-outlet>
+</main>

@@ -3,5 +3,10 @@ ng new ssr --no-standalone --routing --ssr=true --style=scss
 
 npm install primeng
 npm install primeicons
+npm install primeflex
+npm install --save-dev @typescript-eslint/eslint-plugin @typescript-eslint/parser
+
+npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin @angular-eslint/eslint-plugin @angular-eslint/eslint-plugin-template
+npm install --save-dev prettier-eslint prettier-eslint-cli
 
 npm i nocache
