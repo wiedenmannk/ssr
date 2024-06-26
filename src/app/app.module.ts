@@ -9,11 +9,12 @@ import { AppComponent } from "./app.component";
 import { DefaultLayoutComponent } from "./layout/default-layout/default-layout.component";
 import { PrimengModule } from "./modules/primeng.module";
 import { HomeComponent } from "./pages/home/home.component";
+import { provideHttpClient } from "@angular/common/http";
 
 @NgModule({
   declarations: [AppComponent, DefaultLayoutComponent, HomeComponent],
   imports: [BrowserModule, AppRoutingModule, PrimengModule],
-  providers: [provideClientHydration()],
+  providers: [provideClientHydration(), provideHttpClient()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
