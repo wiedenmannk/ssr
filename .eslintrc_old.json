@@ -46,7 +46,7 @@
       "extends": ["plugin:@angular-eslint/template/recommended"],
       "rules": {
         "@angular-eslint/template/eqeqeq": "off",
-        "indent": ["error", "tab"]
+        "indent": "off" // Verwendung von "tab" für Einrückungen in HTML-Dateien
       }
     }
   ]

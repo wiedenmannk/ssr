@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import {
-  BrowserModule,
-  provideClientHydration,
+	BrowserModule,
+	provideClientHydration,
 } from "@angular/platform-browser";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -12,9 +12,9 @@ import { HomeComponent } from "./pages/home/home.component";
 import { provideHttpClient } from "@angular/common/http";
 
 @NgModule({
-  declarations: [AppComponent, DefaultLayoutComponent, HomeComponent],
-  imports: [BrowserModule, AppRoutingModule, PrimengModule],
-  providers: [provideClientHydration(), provideHttpClient()],
-  bootstrap: [AppComponent],
+	declarations: [AppComponent, DefaultLayoutComponent, HomeComponent],
+	imports: [BrowserModule, AppRoutingModule, PrimengModule],
+	providers: [provideClientHydration(), provideHttpClient()],
+	bootstrap: [AppComponent],
 })
 export class AppModule {}

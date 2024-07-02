@@ -4,20 +4,20 @@ import { DefaultLayoutComponent } from "./layout/default-layout/default-layout.c
 import { HomeComponent } from "./pages/home/home.component";
 
 const routes: Routes = [
-  {
-    path: "",
-    component: DefaultLayoutComponent,
-    children: [
-      {
-        path: "",
-        component: HomeComponent
-      }
-    ],
-  },
+	{
+		path: "",
+		component: DefaultLayoutComponent,
+		children: [
+			{
+				path: "",
+				component: HomeComponent
+			}
+		],
+	},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule],
 })
 export class AppRoutingModule {}

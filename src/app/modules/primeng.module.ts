@@ -7,8 +7,8 @@ import { MenubarModule } from "primeng/menubar";
 const modules = [ButtonModule, MenubarModule];
 
 @NgModule({
-  declarations: [],
-  imports: [CommonModule, ...modules],
-  exports: [modules],
+	declarations: [],
+	imports: [CommonModule, ...modules],
+	exports: [modules],
 })
 export class PrimengModule {}
