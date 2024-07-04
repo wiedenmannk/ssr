@@ -10,9 +10,10 @@ import { DefaultLayoutComponent } from "./layout/default-layout/default-layout.c
 import { PrimengModule } from "./modules/primeng.module";
 import { HomeComponent } from "./pages/home/home.component";
 import { provideHttpClient } from "@angular/common/http";
+import { DataComponent } from './components/data/data.component';
 
 @NgModule({
-	declarations: [AppComponent, DefaultLayoutComponent, HomeComponent],
+	declarations: [AppComponent, DefaultLayoutComponent, HomeComponent, DataComponent],
 	imports: [BrowserModule, AppRoutingModule, PrimengModule],
 	providers: [provideClientHydration(), provideHttpClient()],
 	bootstrap: [AppComponent],
