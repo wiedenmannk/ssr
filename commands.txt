@@ -10,4 +10,6 @@ npm install --save-dev eslint @angular-eslint/eslint-plugin @angular-eslint/esli
 npm install --save-dev prettier-eslint prettier-eslint-cli
 npm install --save-dev @angular-eslint/template-parser
 
+ng add @nguniversal/express-engine
+
 npm i nocache

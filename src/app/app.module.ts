@@ -11,9 +11,10 @@ import { PrimengModule } from "./modules/primeng.module";
 import { HomeComponent } from "./pages/home/home.component";
 import { provideHttpClient } from "@angular/common/http";
 import { DataComponent } from './components/data/data.component';
+import { ProductComponent } from './components/product/product.component';
 
 @NgModule({
-	declarations: [AppComponent, DefaultLayoutComponent, HomeComponent, DataComponent],
+	declarations: [AppComponent, DefaultLayoutComponent, HomeComponent, DataComponent, ProductComponent],
 	imports: [BrowserModule, AppRoutingModule, PrimengModule],
 	providers: [provideClientHydration(), provideHttpClient()],
 	bootstrap: [AppComponent],

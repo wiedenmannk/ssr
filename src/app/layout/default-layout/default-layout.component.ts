@@ -10,11 +10,25 @@ export class DefaultLayoutComponent {
 	items: MenuItem[] | undefined= [
 		{
 			label: "Home",
-			icon: "pi pi-home"
+			icon: "pi pi-home",
+			routerLink: "/"
 		},
 		{
 			label: "Features",
 			icon: "pi pi-star"
+		},
+		{
+			label:"Products",
+			items: [
+				{
+					label: "Product 1",
+					routerLink: "product/1"
+				},
+				{
+					label: "Product 2",
+					routerLink: "product/2"
+				}
+			]
 		},
 		{
 			label: "Projects",

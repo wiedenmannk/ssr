@@ -1,5 +1,8 @@
 {
   "editor.formatOnSave": true,
+  "editor.insertSpaces": false,
+  "editor.detectIndentation": false,
+  "editor.defaultFormatter": "EditorConfig.EditorConfig",
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit",
     "source.fixAll.eslint": "explicit"
@@ -9,17 +12,24 @@
     "dist/**": true
   },
   "[typescript]": {
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true
+
+    "editor.indentSize": 2,
+    "editor.insertSpaces": false,
+    "editor.detectIndentation": false,
+  },
+  "[ts]": {
+    "editor.indentSize": 2,
+    "editor.insertSpaces": false,
+    "editor.detectIndentation": false,
   },
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.tabSize": 2,
-    "editor.insertSpaces": true
+    "editor.insertSpaces": false
   },
   "[json]": {
     "editor.tabSize": 2,
-    "editor.insertSpaces": true
+    "editor.insertSpaces": false
   },
   "eslint.alwaysShowStatus": true,
   "eslint.validate": [
@@ -38,5 +48,6 @@
   "prettier.bracketSpacing": true,
   "prettier.arrowParens": "avoid",
   "prettier.trailingComma": "none",
-  "prettier.htmlWhitespaceSensitivity": "ignore"
+  "prettier.htmlWhitespaceSensitivity": "ignore",
+  "editor.indentSize": "tabSize"
 }
