@@ -12,8 +12,14 @@ export class DataComponent implements OnInit {
 	constructor(private dataService: DataService) {}
 
 	ngOnInit(): void {
+		this.getData();
+	}
+
+	getData(): void {
 		this.dataService.getData().subscribe(response => {
 			this.data = response;
+			console.log("response",response);
 		});
 	}
+
 }

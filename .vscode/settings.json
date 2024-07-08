@@ -32,7 +32,7 @@
   ],
   "prettier.tabWidth": 2,
   "prettier.useTabs": true,
-  "prettier.singleQuote": true,
+  "prettier.singleQuote": false,
   "prettier.semi": true,
   "prettier.printWidth": 80,
   "prettier.bracketSpacing": true,
