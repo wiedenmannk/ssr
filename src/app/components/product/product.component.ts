@@ -1,6 +1,8 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Inject, PLATFORM_ID } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { isPlatformServer } from "@angular/common";
+import { Observable } from "rxjs";
 
 @Component({
 	selector: "app-product",
@@ -9,10 +11,29 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class ProductComponent implements OnInit {
 	product: any;
+	productData: any;
 
-	constructor(private route: ActivatedRoute, private http: HttpClient) {}
+	constructor(
+		private route: ActivatedRoute,
+		private http: HttpClient,
+		@Inject("PRODUCT_DATA") productData: any,
+		@Inject(PLATFORM_ID) private platformId: object) {
+		if (isPlatformServer(this.platformId)) {
+			this.productData = productData;
+		} else {
+			const productId = this.route.snapshot.paramMap.get("id");
+			if (productId) {
+				this.fetchProductData(productId).subscribe(data => this.productData = data);
+			}
+		}
+	}
+
+	fetchProductData(id: string): Observable<any> {
+		return this.http.get(`/api/products/${id}`);
+	}
 
 	ngOnInit(): void {
+		/*
 		const productId = this.route.snapshot.paramMap.get("id");
 		const requestUrl = `/api/products/${productId}`;
 		console.log("call to url:", requestUrl);
@@ -20,5 +41,7 @@ export class ProductComponent implements OnInit {
 			console.log("product", data);
 			this.product = data;
 		});
+		*/
 	}
+
 }

@@ -107,37 +107,20 @@ export function app(): express.Express {
 	}));
 
 	// All regular routes use the Angular engine
-	server.get("**", async (req, res, next) => {
+	server.get("**", (req, res, next) => {
 		console.log("angular route detected", req.url);
 		const { protocol, originalUrl, baseUrl, headers } = req;
-		const productId = req.query["productId"];
 
-		try {
-			const productResponse = productId
-				? await axios.get(`http://127.0.0.1:5000/api/product/${productId}`)
-				: null;
-			const productData = productResponse ? productResponse.data : null;
-
-			commonEngine
-				.render({
-					bootstrap: AppServerModule,
-					documentFilePath: indexHtml,
-					url: `${protocol}://${headers.host}${originalUrl}`,
-					publicPath: browserDistFolder,
-					providers: [
-						{ provide: APP_BASE_HREF, useValue: baseUrl },
-						{ provide: "PRODUCT_DATA", useValue: productData } // Inject product data
-					],
-				})
-				.then((html) => res.send(html))
-				.catch((err) => next(err));
-		} catch (error) {
-			console.error("Error fetching product data from Python server:", error);
-			res.status(500).json({
-				error: "Failed to fetch product data from Python server",
-				details: error instanceof Error ? error.message : "Unknown error"
-			});
-		}
+		commonEngine
+			.render({
+				bootstrap: AppServerModule,
+				documentFilePath: indexHtml,
+				url: `${protocol}://${headers.host}${originalUrl}`,
+				publicPath: browserDistFolder,
+				providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
+			})
+			.then((html) => res.send(html))
+			.catch((err) => next(err));
 	});
 
 	return server;
