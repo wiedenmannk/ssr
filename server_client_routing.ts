@@ -11,10 +11,11 @@ interface Product {
   id: number;
   name: string;
   description: string;
-  serial: number;
+	serial: number;
 }
 
-function getRandomInt(max: number): number {
+
+function getRandomInt(max:number):number {
 	return Math.floor(Math.random() * max);
 }
 
@@ -31,22 +32,6 @@ export function app(): express.Express {
 	server.set("view engine", "html");
 	server.set("views", browserDistFolder);
 
-	/* server routings */
-	server.get("/product/:id", (req, res) => {
-		const productId = req.params.id;
-
-		// Beispiel-Daten, ersetzen Sie dies mit einem echten Datenabruf
-		const productData = { id: productId, name: `Product ${productId}` };
-		console.log("server route /product/:id", productData);
-
-		// Server-Side Rendering mit Angular Universal
-		res.render("index", {
-			req,
-			providers: [{ provide: "PRODUCT_DATA", useValue: productData }],
-		});
-	});
-
-
 	server.get("/api/home", (req, res) => {
 		console.log("call /api/home");
 		const welcome = {
@@ -59,22 +44,22 @@ export function app(): express.Express {
 	// Route for fetching product data from Python server
 	server.get("/api/products/:id", async (req, res) => {
 		const productId = req.params.id;
-		console.log("call product api productId " + productId);
+		console.log("call product api productId "+productId);
 		try {
 			const response = await axios.get(`http://127.0.0.1:5000/api/product/${productId}`);
-			console.log("server.ts product data", response.data);
+			console.log("server.ts product data",response.data);
 			res.json(response.data);
 		} catch (error: unknown) {
 			console.error("Error fetching product data from Python server:", error);
 			if (error instanceof Error) {
 				res.status(500).json({
 					error: "Failed to fetch product data from Python server",
-					details: error.message,
+					details: error.message
 				});
 			} else {
 				res.status(500).json({
 					error: "Failed to fetch product data from Python server",
-					details: "Unknown error",
+					details: "Unknown error"
 				});
 			}
 		}
@@ -101,21 +86,23 @@ export function app(): express.Express {
 		}
 	});
 	// Serve static files from /browser
-	server.get(
-		"**",
-		express.static(browserDistFolder, {
-			maxAge: "1y",
-			index: "index.html",
-		})
-	);
+	server.get("**", express.static(browserDistFolder, {
+		maxAge: "1y",
+		index: "index.html",
+	}));
 
 	// All regular routes use the Angular engine
 	server.get("**", async (req, res, next) => {
 		console.log("angular route detected", req.url);
 		const { protocol, originalUrl, baseUrl, headers } = req;
-		const productData = null;
+		const productId = req.query["productId"];
 
 		try {
+			const productResponse = productId
+				? await axios.get(`http://127.0.0.1:5000/api/product/${productId}`)
+				: null;
+			const productData = productResponse ? productResponse.data : null;
+			console.log("server.ts PRODUCT_DATA:", productData);
 			commonEngine
 				.render({
 					bootstrap: AppServerModule,
@@ -124,7 +111,7 @@ export function app(): express.Express {
 					publicPath: browserDistFolder,
 					providers: [
 						{ provide: APP_BASE_HREF, useValue: baseUrl },
-						{ provide: "PRODUCT_DATA", useValue: productData }, // Inject product data
+						{ provide: "PRODUCT_DATA", useValue: productData } // Inject product data
 					],
 				})
 				.then((html) => res.send(html))
@@ -133,7 +120,7 @@ export function app(): express.Express {
 			console.error("Error rendering Angular application:", error);
 			res.status(500).json({
 				error: "Failed to render Angular application",
-				details: error instanceof Error ? error.message : "Unknown error",
+				details: error instanceof Error ? error.message : "Unknown error"
 			});
 		}
 	});

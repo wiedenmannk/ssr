@@ -3,5 +3,9 @@
     "target": "http://localhost:4000",
     "secure": false,
     "logLevel": "info"
+  },
+	"/product": {
+    "target": "http://localhost:4000",
+    "secure": false
   }
 }

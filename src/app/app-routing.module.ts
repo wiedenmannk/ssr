@@ -19,7 +19,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(routes)],
-	exports: [RouterModule],
+	imports: [RouterModule.forRoot(routes, {
+		initialNavigation: "enabledBlocking" // Ensures server-side rendering
+	})],
+	exports: [RouterModule]
 })
+
 export class AppRoutingModule {}
