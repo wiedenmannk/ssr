@@ -14,14 +14,6 @@ interface Product {
 	serial: number;
 }
 
-// Dummy data
-function generateProductData(): { [key: string]: Product } {
-	return {
-		"1": { id: 1, name: "Product 1", description: "Description of Product 1", serial: getRandomInt(1000) },
-		"2": { id: 2, name: "Product 2", description: "Description of Product 2", serial: getRandomInt(1000) },
-		// Add more products as needed
-	};
-}
 
 function getRandomInt(max:number):number {
 	return Math.floor(Math.random() * max);
@@ -40,29 +32,22 @@ export function app(): express.Express {
 	server.set("view engine", "html");
 	server.set("views", browserDistFolder);
 
-	// Define the type for product data
-
-	// API endpoint to fetch product data
-	/*
-	server.get("/api/products/:id", (req, res) => {
-		console.log("prouduct call", req.url);
-		const productId = req.params.id;
-		const productData = generateProductData();
-		const product = productData[productId];
-		if (product) {
-			res.json(product);
-		} else {
-			res.status(404).send("Product not found");
-		}
+	server.get("/api/home", (req, res) => {
+		console.log("call /api/home");
+		const welcome = {
+			welcome: "Hello from Node.js Server"
+		};
+		res.json(welcome);
 	});
-*/
+
 
 	// Route for fetching product data from Python server
 	server.get("/api/products/:id", async (req, res) => {
 		const productId = req.params.id;
-		console.log("call product api productId "+req.params.id);
+		console.log("call product api productId "+productId);
 		try {
 			const response = await axios.get(`http://127.0.0.1:5000/api/product/${productId}`);
+			console.log("server.ts product data",response.data);
 			res.json(response.data);
 		} catch (error: unknown) {
 			console.error("Error fetching product data from Python server:", error);
@@ -117,7 +102,7 @@ export function app(): express.Express {
 				? await axios.get(`http://127.0.0.1:5000/api/product/${productId}`)
 				: null;
 			const productData = productResponse ? productResponse.data : null;
-
+			console.log("server.ts PRODUCT_DATA:", productData);
 			commonEngine
 				.render({
 					bootstrap: AppServerModule,
@@ -132,9 +117,9 @@ export function app(): express.Express {
 				.then((html) => res.send(html))
 				.catch((err) => next(err));
 		} catch (error) {
-			console.error("Error fetching product data from Python server:", error);
+			console.error("Error rendering Angular application:", error);
 			res.status(500).json({
-				error: "Failed to fetch product data from Python server",
+				error: "Failed to render Angular application",
 				details: error instanceof Error ? error.message : "Unknown error"
 			});
 		}

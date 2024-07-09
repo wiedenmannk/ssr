@@ -11,7 +11,6 @@ import { Observable } from "rxjs";
 })
 export class ProductComponent implements OnInit {
 	product: any;
-	productData: any;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -19,11 +18,16 @@ export class ProductComponent implements OnInit {
 		@Inject("PRODUCT_DATA") productData: any,
 		@Inject(PLATFORM_ID) private platformId: object) {
 		if (isPlatformServer(this.platformId)) {
-			this.productData = productData;
+			this.product = productData;
+			console.log("get product from server", productData);
 		} else {
+			console.log("running ProductComponent on browser");
 			const productId = this.route.snapshot.paramMap.get("id");
 			if (productId) {
-				this.fetchProductData(productId).subscribe(data => this.productData = data);
+				this.fetchProductData(productId).subscribe(data => {
+					console.log("fectching data from browser", data);
+					this.product = data;
+				});
 			}
 		}
 	}

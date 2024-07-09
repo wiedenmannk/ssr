@@ -1,6 +1,7 @@
-<div *ngIf="data">
-  <h2>{{ data.message }}</h2>
+<div>Daten von Node.JS</div>
+<div id="data" *ngIf="data">
+	<h2>{{ data.message }}</h2>
 </div>
 <div>
-  <p-button label="Datan aktualisieren" (onClick)="getData()" />
+	<p-button label="Datan aktualisieren" (onClick)="getData()" />
 </div>

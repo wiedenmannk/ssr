@@ -10,13 +10,18 @@ import { DefaultLayoutComponent } from "./layout/default-layout/default-layout.c
 import { PrimengModule } from "./modules/primeng.module";
 import { HomeComponent } from "./pages/home/home.component";
 import { provideHttpClient } from "@angular/common/http";
-import { DataComponent } from './components/data/data.component';
-import { ProductComponent } from './components/product/product.component';
+import { DataComponent } from "./components/data/data.component";
+import { ProductComponent } from "./components/product/product.component";
 
 @NgModule({
 	declarations: [AppComponent, DefaultLayoutComponent, HomeComponent, DataComponent, ProductComponent],
 	imports: [BrowserModule, AppRoutingModule, PrimengModule],
-	providers: [provideClientHydration(), provideHttpClient()],
+	providers: [
+		provideClientHydration(),
+		provideHttpClient(),
+		// Hier registrierst du PRODUCT_DATA als Provider
+		{ provide: "PRODUCT_DATA", useValue: null }  // Initialisierung, wird überschrieben
+	],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}
