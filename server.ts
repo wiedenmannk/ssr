@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, join, resolve } from "node:path";
 import AppServerModule from "./src/main.server";
 import nocache from "nocache";
+import axios from "axios";
 
 interface Product {
   id: number;
@@ -42,7 +43,9 @@ export function app(): express.Express {
 	// Define the type for product data
 
 	// API endpoint to fetch product data
+	/*
 	server.get("/api/products/:id", (req, res) => {
+		console.log("prouduct call", req.url);
 		const productId = req.params.id;
 		const productData = generateProductData();
 		const product = productData[productId];
@@ -52,7 +55,51 @@ export function app(): express.Express {
 			res.status(404).send("Product not found");
 		}
 	});
+*/
 
+	// Route for fetching product data from Python server
+	server.get("/api/products/:id", async (req, res) => {
+		const productId = req.params.id;
+		console.log("call product api productId "+req.params.id);
+		try {
+			const response = await axios.get(`http://127.0.0.1:5000/api/product/${productId}`);
+			res.json(response.data);
+		} catch (error: unknown) {
+			console.error("Error fetching product data from Python server:", error);
+			if (error instanceof Error) {
+				res.status(500).json({
+					error: "Failed to fetch product data from Python server",
+					details: error.message
+				});
+			} else {
+				res.status(500).json({
+					error: "Failed to fetch product data from Python server",
+					details: "Unknown error"
+				});
+			}
+		}
+	});
+
+	// Route for fetching data from Python server
+	server.get("/api/data", async (req, res) => {
+		try {
+			const response = await axios.get("http://127.0.0.1:5000/api/data");
+			res.json(response.data);
+		} catch (error: unknown) {
+			console.error("Error fetching data from Python server:", error);
+			if (error instanceof Error) {
+				res.status(500).json({
+					error: "Failed to fetch data from Python server",
+					details: error.message
+				});
+			} else {
+				res.status(500).json({
+					error: "Failed to fetch data from Python server",
+					details: "Unknown error"
+				});
+			}
+		}
+	});
 	// Serve static files from /browser
 	server.get("**", express.static(browserDistFolder, {
 		maxAge: "1y",
@@ -61,6 +108,7 @@ export function app(): express.Express {
 
 	// All regular routes use the Angular engine
 	server.get("**", (req, res, next) => {
+		console.log("angular route detected", req.url);
 		const { protocol, originalUrl, baseUrl, headers } = req;
 
 		commonEngine

@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 })
 export class DataService {
 
-	private apiUrl = "api/data";
+	private apiUrl = "/api/data";
 	// private apiUrl = "http://127.0.0.1:5000/api/data";
 
 	constructor(private http: HttpClient) {}
