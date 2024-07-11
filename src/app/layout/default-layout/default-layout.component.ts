@@ -14,19 +14,20 @@ export class DefaultLayoutComponent {
 			routerLink: "/"
 		},
 		{
-			label: "Features",
-			icon: "pi pi-star"
+			label: "TEST",
+			icon: "pi pi-star",
+			routerLink: "/test"
 		},
 		{
 			label:"Products",
 			items: [
 				{
 					label: "Product 1",
-					routerLink: "product/1"
+					routerLink: "/product/1"
 				},
 				{
 					label: "Product 2",
-					routerLink: "product/2"
+					routerLink: "/product/2"
 				}
 			]
 		},

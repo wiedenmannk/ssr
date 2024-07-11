@@ -12,9 +12,10 @@ import { HomeComponent } from "./pages/home/home.component";
 import { provideHttpClient } from "@angular/common/http";
 import { DataComponent } from "./components/data/data.component";
 import { ProductComponent } from "./components/product/product.component";
+import { TestComponent } from "./components/test/test.component";
 
 @NgModule({
-	declarations: [AppComponent, DefaultLayoutComponent, HomeComponent, DataComponent, ProductComponent],
+	declarations: [AppComponent, DefaultLayoutComponent, HomeComponent, DataComponent, ProductComponent, TestComponent],
 	imports: [BrowserModule, AppRoutingModule, PrimengModule],
 	providers: [
 		provideClientHydration(),

@@ -6,6 +6,7 @@ import { dirname, join, resolve } from "node:path";
 import AppServerModule from "./src/main.server";
 import nocache from "nocache";
 import axios from "axios";
+import { ProductService } from "./src/app/service/product-server-service";
 
 interface Product {
   id: number;
@@ -32,8 +33,10 @@ export function app(): express.Express {
 	server.set("views", browserDistFolder);
 
 	/* server routings */
+	/*
 	server.get("/product/:id", (req, res) => {
 		const productId = req.params.id;
+		console.log("product api call "+productId);
 
 		// Beispiel-Daten, ersetzen Sie dies mit einem echten Datenabruf
 		const productData = { id: productId, name: `Product ${productId}` };
@@ -45,7 +48,7 @@ export function app(): express.Express {
 			providers: [{ provide: "PRODUCT_DATA", useValue: productData }],
 		});
 	});
-
+*/
 
 	server.get("/api/home", (req, res) => {
 		console.log("call /api/home");
@@ -57,12 +60,13 @@ export function app(): express.Express {
 
 
 	// Route for fetching product data from Python server
+
 	server.get("/api/products/:id", async (req, res) => {
 		const productId = req.params.id;
 		console.log("call product api productId " + productId);
 		try {
 			const response = await axios.get(`http://127.0.0.1:5000/api/product/${productId}`);
-			console.log("server.ts product data", response.data);
+			console.log("product api product data", response.data);
 			res.json(response.data);
 		} catch (error: unknown) {
 			console.error("Error fetching product data from Python server:", error);
@@ -110,10 +114,19 @@ export function app(): express.Express {
 	);
 
 	// All regular routes use the Angular engine
-	server.get("**", async (req, res, next) => {
+	server.get("*", async (req, res, next) => {
 		console.log("angular route detected", req.url);
 		const { protocol, originalUrl, baseUrl, headers } = req;
+		const productId = req.query["productId"] as string;
+		console.log("product call", productId);
 		const productData = null;
+		// console.log("request", req);
+		console.log("path", req.path);
+		if(req.path.indexOf("/api/products/") !== -1) {
+			console.log("product found");
+		}
+
+		// productData = await ProductService.getProductData(productId);
 
 		try {
 			commonEngine
