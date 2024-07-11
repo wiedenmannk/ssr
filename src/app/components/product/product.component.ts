@@ -1,8 +1,12 @@
+import { store } from "@model/store";
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit, Inject, PLATFORM_ID } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { isPlatformServer } from "@angular/common";
 import { Observable } from "rxjs";
+import { Product } from "../../model/product";
+
+
 
 @Component({
 	selector: "app-product",
@@ -10,19 +14,35 @@ import { Observable } from "rxjs";
 	styleUrl: "./product.component.scss"
 })
 export class ProductComponent implements OnInit {
-	product: any;
+	product?: Product;
 
 	constructor(
 		private route: ActivatedRoute,
 		private http: HttpClient,
-		@Inject("PRODUCT_DATA") productData: any,
+		@Inject("PRODUCT_DATA") productData: Product | undefined,
 		@Inject(PLATFORM_ID) private platformId: object) {
+		const productId = this.route.snapshot.paramMap.get("id");
 		if (isPlatformServer(this.platformId)) {
-			this.product = productData;
+			if(productData) {
+				this.product = productData;
+			} else {
+				if(productId) {
+					this.fetchProductData(productId).subscribe(data => {
+						console.log("fectching data from server", data);
+						this.product = data;
+						store.setProduct(data);
+					});
+				}
+			}
+
+
 			console.log("get product from server", productData);
 		} else {
 			console.log("running ProductComponent on browser");
-			const productId = this.route.snapshot.paramMap.get("id");
+			console.log("product from store", store.getProduct());
+			if(this.product) {
+				console.log("Product already exits", this.product);
+			}
 			if (productId) {
 				this.fetchProductData(productId).subscribe(data => {
 					console.log("fectching data from browser", data);
@@ -32,8 +52,8 @@ export class ProductComponent implements OnInit {
 		}
 	}
 
-	fetchProductData(id: string): Observable<any> {
-		return this.http.get(`/api/products/${id}`);
+	fetchProductData(id: string): Observable<Product> {
+		return this.http.get<Product>(`/api/products/${id}`);
 	}
 
 	ngOnInit(): void {

@@ -4,6 +4,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
+		"baseUrl": "./",
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -24,9 +25,9 @@
       "dom"
     ],
 		"paths": {
-      "@modules/*": ["/src/app/modules/*"],
-      "@service/*": ["/src/app/service/*"],
-			"@model/*": ["/src/app/model/*"],
+      "@modules/*": ["src/app/modules/*"],
+      "@service/*": ["src/app/service/*"],
+			"@model/*": ["src/app/model/*"],
     },
 
   },

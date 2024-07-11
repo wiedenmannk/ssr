@@ -7,6 +7,7 @@ import AppServerModule from "./src/main.server";
 import nocache from "nocache";
 import axios from "axios";
 import { ProductService } from "./src/app/service/product-server-service";
+import { existsSync, writeFileSync, mkdirSync } from "fs";
 
 interface Product {
   id: number;
@@ -57,6 +58,36 @@ export function app(): express.Express {
 		};
 		res.json(welcome);
 	});
+
+	// Beispiel für eine neue API-Route
+	server.get("/api/ptest", async (req, res) => {
+		try {
+			const response = await axios.get("http://localhost:4000/product/1", {
+				headers: { "Accept": "text/html" }
+			});
+			const pageContent = response.data;
+
+			// Verzeichnis 'files' erstellen, falls es nicht existiert
+			const dir = join(process.cwd(), "files");
+			if (!existsSync(dir)){
+				mkdirSync(dir);
+			}
+
+			// Schreiben des Inhalts in die Datei 'files/test.html'
+			const filePath = join(dir, "test.html");
+			writeFileSync(filePath, pageContent, "utf8");
+
+			// Hier könnte man eine Prüfung des Inhalts durchführen
+			if (pageContent.includes("Erwarteter Inhalt")) {
+				res.status(200).send("Test erfolgreich und Inhalt in test.html geschrieben!");
+			} else {
+				res.status(500).send("Test fehlgeschlagen, aber Inhalt in test.html geschrieben.");
+			}
+		} catch (error) {
+			res.status(500).send("Fehler beim Abrufen der Seite: " + (error as Error).message);
+		}
+	});
+
 
 
 	// Route for fetching product data from Python server
@@ -114,7 +145,7 @@ export function app(): express.Express {
 	);
 
 	// All regular routes use the Angular engine
-	server.get("*", async (req, res, next) => {
+	server.get("**", async (req, res, next) => {
 		console.log("angular route detected", req.url);
 		const { protocol, originalUrl, baseUrl, headers } = req;
 		const productId = req.query["productId"] as string;
