@@ -139,10 +139,10 @@ export function app(): express.Express {
 	server.get(
 		"**",
 		express.static(browserDistFolder, {
-			maxAge: "1y",
-			index: "index.html",
+			maxAge: "1y"
 		})
 	);
+	// index: "index.html",
 
 	// All regular routes use the Angular engine
 	server.get("**", async (req, res, next) => {
@@ -153,7 +153,9 @@ export function app(): express.Express {
 		const productData = null;
 		// console.log("request", req);
 		console.log("path", req.path);
-		if(req.path.indexOf("/api/products/") !== -1) {
+		if(req.path.indexOf("/product/") !== -1) {
+			const params = req.path.split("/");
+			console.log("params", params);
 			console.log("product found");
 		}
 

@@ -24,6 +24,7 @@ export class ProductComponent implements OnInit {
 		const productId = this.route.snapshot.paramMap.get("id");
 		if (isPlatformServer(this.platformId)) {
 			if(productData) {
+				console.log("got product from SERVER");
 				this.product = productData;
 			} else {
 				if(productId) {
