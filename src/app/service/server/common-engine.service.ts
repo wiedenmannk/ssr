@@ -11,7 +11,7 @@ export class CommonEngineService {
 	private browserDistFolder? :string ;
 	private nextFunction: express.NextFunction = (err:any)=> { console.log("Rendering Engine Error",err); return err;};
 
-	public start(req: any,res: any, productData?:Product, indexHtml?:string, browserDistFolder?:string): void {
+	public start(req: any,res: any, indexHtml?:string, browserDistFolder?:string): void {
 		const { protocol, originalUrl, baseUrl, headers } = req;
 		if(!indexHtml) {
 			if(!this.indexHtml)	{
@@ -34,7 +34,6 @@ export class CommonEngineService {
 					publicPath: browserDistFolder,
 					providers: [
 						{ provide: APP_BASE_HREF, useValue: baseUrl },
-						{ provide: "PRODUCT_DATA", useValue: productData }, // Inject product data
 					],
 				})
 				.then((html: any) => res.send(html))

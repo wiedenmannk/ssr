@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Product } from "../model/product";
 
-export class ProductService {
+export class ProductServerService {
 	static async getProductData(productId: string): Promise<Product> {
 		try {
 			const response = await axios.get(`http://127.0.0.1:5000/api/product/${productId}`);

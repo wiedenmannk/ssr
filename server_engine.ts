@@ -6,9 +6,8 @@ import { dirname, join, resolve } from "node:path";
 import AppServerModule from "./src/main.server";
 import nocache from "nocache";
 import axios from "axios";
-import { ProductServerService } from "./src/app/service/product-server-service";
+import { ProductService } from "./src/app/service/product-server-service";
 import { existsSync, writeFileSync, mkdirSync } from "fs";
-import { CommonEngineService } from "@service/server/common-engine.service";
 
 interface Product {
   id: number;
@@ -29,13 +28,28 @@ export function app(): express.Express {
 	const browserDistFolder = resolve(serverDistFolder, "../browser");
 	const indexHtml = join(serverDistFolder, "index.server.html");
 
-	// const commonEngine = new CommonEngine();
-	const commonEngineService = new CommonEngineService();
-	commonEngineService.setBrowserDistFolder(browserDistFolder);
-	commonEngineService.setIndexHtml(indexHtml);
+	const commonEngine = new CommonEngine();
 
 	server.set("view engine", "html");
 	server.set("views", browserDistFolder);
+
+	/* server routings */
+	/*
+	server.get("/product/:id", (req, res) => {
+		const productId = req.params.id;
+		console.log("product api call "+productId);
+
+		// Beispiel-Daten, ersetzen Sie dies mit einem echten Datenabruf
+		const productData = { id: productId, name: `Product ${productId}` };
+		console.log("server route /product/:id", productData);
+
+		// Server-Side Rendering mit Angular Universal
+		res.render("index", {
+			req,
+			providers: [{ provide: "PRODUCT_DATA", useValue: productData }],
+		});
+	});
+*/
 
 	server.get("/api/home", (req, res) => {
 		console.log("call /api/home");
@@ -134,6 +148,9 @@ export function app(): express.Express {
 	server.get("**", async (req, res, next) => {
 		console.log("angular route detected", req.url);
 		const { protocol, originalUrl, baseUrl, headers } = req;
+		const productId = req.query["productId"] as string;
+		console.log("product call", productId);
+		const productData = null;
 		// console.log("request", req);
 		console.log("path", req.path);
 		if(req.path.indexOf("/product/") !== -1) {
@@ -141,10 +158,30 @@ export function app(): express.Express {
 			console.log("params", params);
 			console.log("product found");
 		}
-		commonEngineService.start(req, res);
+
 		// productData = await ProductService.getProductData(productId);
 
-
+		try {
+			commonEngine
+				.render({
+					bootstrap: AppServerModule,
+					documentFilePath: indexHtml,
+					url: `${protocol}://${headers.host}${originalUrl}`,
+					publicPath: browserDistFolder,
+					providers: [
+						{ provide: APP_BASE_HREF, useValue: baseUrl },
+						{ provide: "PRODUCT_DATA", useValue: productData }, // Inject product data
+					],
+				})
+				.then((html) => res.send(html))
+				.catch((err) => next(err));
+		} catch (error) {
+			console.error("Error rendering Angular application:", error);
+			res.status(500).json({
+				error: "Failed to render Angular application",
+				details: error instanceof Error ? error.message : "Unknown error",
+			});
+		}
 	});
 
 	return server;
