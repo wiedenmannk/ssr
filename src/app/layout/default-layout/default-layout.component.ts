@@ -36,8 +36,10 @@ export class DefaultLayoutComponent {
 			icon: "pi pi-search",
 			items: [
 				{
-					label: "Components",
-					icon: "pi pi-bolt"
+					label: "Standalone Component",
+					icon: "pi pi-bolt",
+					routerLink: "/standalone"
+
 				},
 				{
 					label: "Blocks",
