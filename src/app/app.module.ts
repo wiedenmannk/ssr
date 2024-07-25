@@ -20,8 +20,6 @@ import { TestComponent } from "./components/test/test.component";
 	providers: [
 		provideClientHydration(),
 		provideHttpClient(),
-		// Hier registrierst du PRODUCT_DATA als Provider
-		{ provide: "PRODUCT_DATA", useValue: null }  // Initialisierung, wird überschrieben
 	],
 	bootstrap: [AppComponent],
 })

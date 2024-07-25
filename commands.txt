@@ -12,3 +12,6 @@ npm install --save-dev @angular-eslint/template-parser
 npm install axios
 
 npm i nocache
+
+chmod 775 cc
+chmod 775 cs
