@@ -3,3 +3,11 @@
 	<p>{{ product.description }}</p>
 	<p>serial: {{ product.serial }}</p>
 </div>
+<div>
+	<p>
+		<button pButton (click)="getState()">Hole Daten manuell</button>
+	</p>
+</div>
+<div>
+	{{ dump }}
+</div>

@@ -2,7 +2,7 @@ import { APP_BASE_HREF } from "@angular/common";
 import { CommonEngine } from "@angular/ssr";
 import AppServerModule from "../../../main.server";
 import express from "express";
-import { Product } from "../../model/product";
+import { APP_ID } from "@angular/core";
 
 
 export class CommonEngineService {
@@ -34,9 +34,12 @@ export class CommonEngineService {
 					publicPath: browserDistFolder,
 					providers: [
 						{ provide: APP_BASE_HREF, useValue: baseUrl },
+						{ provide: APP_ID, useValue: "ssr_hydra" },
 					],
 				})
-				.then((html: any) => res.send(html))
+				.then((html: any) => {
+					return res.send(html);
+				})
 				.catch((err: any) => this.nextFunction(err));
 		} catch (error) {
 			console.error("Error rendering Angular application:", error);

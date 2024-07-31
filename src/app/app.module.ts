@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { APP_ID, NgModule } from "@angular/core";
 import {
 	BrowserModule,
 	provideClientHydration,
@@ -20,6 +20,7 @@ import { TestComponent } from "./components/test/test.component";
 	providers: [
 		provideClientHydration(),
 		provideHttpClient(),
+		{ provide: APP_ID, useValue: "ssr_hydra" },
 	],
 	bootstrap: [AppComponent],
 })

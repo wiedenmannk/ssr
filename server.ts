@@ -1,21 +1,12 @@
-import { APP_BASE_HREF } from "@angular/common";
-import { CommonEngine } from "@angular/ssr";
 import express from "express";
 import { fileURLToPath } from "node:url";
 import { dirname, join, resolve } from "node:path";
-import AppServerModule from "./src/main.server";
 import nocache from "nocache";
 import axios from "axios";
-import { ProductServerService } from "./src/app/service/product-server-service";
 import { existsSync, writeFileSync, mkdirSync } from "fs";
 import { CommonEngineService } from "@service/server/common-engine.service";
+import logger from "@service/server/logger";
 
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  serial: number;
-}
 
 function getRandomInt(max: number): number {
 	return Math.floor(Math.random() * max);
@@ -80,7 +71,9 @@ export function app(): express.Express {
 
 	server.get("/api/products/:id", async (req, res) => {
 		const productId = req.params.id;
+
 		console.log("call product api productId " + productId);
+		// logger.info("call product api productId " + productId);
 		try {
 			const response = await axios.get(`http://127.0.0.1:5000/api/product/${productId}`);
 			console.log("product api product data", response.data);

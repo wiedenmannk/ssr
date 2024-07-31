@@ -11,6 +11,7 @@ export class TransferStateService {
 
 	set<T>(key: string, value: T): void {
 		const stateKey = makeStateKey<T>(key);
+		console.log("stateKey", stateKey);
 		if (isPlatformServer(this.platformId)) {
 			console.log("setze State Key", key);
 			console.log("StateValue", value);
@@ -50,5 +51,12 @@ export class TransferStateService {
 			}
 		});
 	}
+
+	dump(): string {
+		const json = this.transferState.toJson();
+		// console.log(json);
+		return json;
+	}
+
 }
 
