@@ -45,21 +45,17 @@ export class ProductComponent implements OnInit {
 
 
 	ngOnInit(): void {
-		const productId = this.productId;
-		const stateProductId = this.stateProductId;
 		this.showDump();
 		if (this.isServer) {
 			// Code, der nur auf dem Server ausgeführt werden soll
-			console.log("Running on the server");
-			if(productId) {
-				this.productService.fetchProductData(productId).subscribe(product => {
-					this.product = product;
-					console.log("stateProductId", stateProductId);
-					this.transferStateService.set(stateProductId, product);
-					console.log("fetched Product for client",product);
-				});
+			console.log("fetch Products on Server");
+			this.fetchProduct();
+		}
+		if(this.isBrowser) {
+			console.log("fetch Products on Browser");
+			if(!this.getState()) {
+				this.fetchProduct();
 			}
-
 		}
 
 		/*
@@ -80,6 +76,22 @@ export class ProductComponent implements OnInit {
 			}
 		}
 			*/
+	}
+
+	fetchProduct(): void {
+		const productId = this.productId;
+		const stateProductId = this.stateProductId;
+
+		if(productId) {
+			this.productService.fetchProductData(productId).subscribe(product => {
+				this.product = product;
+				console.log("stateProductId", stateProductId);
+				if(this.isServer) {
+					this.transferStateService.set(stateProductId, product);
+				}
+				console.log("fetched Product for client",product);
+			});
+		}
 	}
 
 	getState(): Product | null {
