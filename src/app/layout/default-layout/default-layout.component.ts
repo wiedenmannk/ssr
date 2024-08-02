@@ -32,43 +32,22 @@ export class DefaultLayoutComponent {
 			]
 		},
 		{
-			label: "Projects",
-			icon: "pi pi-search",
+			label: "Templates",
+			icon: "pi pi-palette",
 			items: [
+				{
+					label: "Sammelbox",
+					icon: "pi pi-palette",
+					routerLink: "/sammelbox",
+				},
 				{
 					label: "Standalone Component",
 					icon: "pi pi-bolt",
 					routerLink: "/standalone"
 
 				},
-				{
-					label: "Blocks",
-					icon: "pi pi-server"
-				},
-				{
-					label: "UI Kit",
-					icon: "pi pi-pencil"
-				},
-				{
-					label: "Templates",
-					icon: "pi pi-palette",
-					items: [
-						{
-							label: "Apollo",
-							icon: "pi pi-palette"
-						},
-						{
-							label: "Ultima",
-							icon: "pi pi-palette"
-						}
-					]
-				}
 			]
 		},
-		{
-			label: "Contact",
-			icon: "pi pi-envelope"
-		}
 	];
 
 }

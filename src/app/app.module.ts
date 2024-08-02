@@ -13,9 +13,10 @@ import { provideHttpClient } from "@angular/common/http";
 import { DataComponent } from "./components/data/data.component";
 import { ProductComponent } from "./components/product/product.component";
 import { TestComponent } from "./components/test/test.component";
+import { SammlungBoxenComponent } from './pages/sammlung-boxen/sammlung-boxen.component';
 
 @NgModule({
-	declarations: [AppComponent, DefaultLayoutComponent, HomeComponent, DataComponent, ProductComponent, TestComponent],
+	declarations: [AppComponent, DefaultLayoutComponent, HomeComponent, DataComponent, ProductComponent, TestComponent, SammlungBoxenComponent],
 	imports: [BrowserModule, AppRoutingModule, PrimengModule],
 	providers: [
 		provideClientHydration(),

@@ -1,3 +1,4 @@
+import { SammlungBoxenComponent } from "./pages/sammlung-boxen/sammlung-boxen.component";
 import { MyStandaloneComponentComponent } from "./standalone/my-standalone-component/my-standalone-component.component";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
@@ -25,6 +26,10 @@ const routes: Routes = [
 				path: "standalone",
 				component: MyStandaloneComponentComponent,
 			},
+			{
+				path: "sammelbox",
+				component: SammlungBoxenComponent
+			}
 		],
 	},
 ];
