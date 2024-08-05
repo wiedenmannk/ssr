@@ -1,0 +1,39 @@
+main {
+	margin-top: 10px;
+}
+
+@media (max-width: 768) {
+	.card-container:last-child {
+		padding-right: 0;
+	}
+}
+
+@media (min-width: 768px) { /* Ab md-Bildschirmgröße */
+	.card-container:first-child, .card-container:nth-child(3) {
+		padding-right: 1rem; /* Setzt das padding-right, außer für das letzte Element in der Reihe */
+	}
+/*
+	.card-container:not(:last-child) {
+		padding-right: 1rem;
+	}
+	*/
+}
+@media (min-width: 992px) { /* Ab lg-Bildschirmgröße */
+	.card-container:last-child {
+		padding-right: 0;
+	}
+	.card-container:nth-child(n):not(:last-child) {
+		padding-right: 1rem;
+	}
+
+
+	/*
+	.card-container:nth-child(3n):not(:last-child) {
+    padding-right: 1rem;
+  }
+  .card-container:nth-child(3n+1),
+  .card-container:nth-child(3n+2) {
+    padding-right: 0;
+  }
+		*/
+}
