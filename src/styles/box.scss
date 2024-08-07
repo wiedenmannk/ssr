@@ -1,0 +1,38 @@
+@mixin box-gradient($linear-gradient, $conic-gradient, $border-color: transparent, $border-width: 2px, $border-style: double, $border-radius: 8px) {
+  border: $border-width $border-style $border-color;
+  background-image: $linear-gradient, $conic-gradient;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  border-radius: $border-radius;
+}
+
+.box-grad-green {
+  @include box-gradient(
+		linear-gradient(#fcf9f9,#faefef),
+		conic-gradient(#0e4d06,#709e4b,#145a45,#49758f)
+	);
+}
+
+.box-grad-blue {
+  @include box-gradient(
+    linear-gradient(#fcf9f9, #faefef),
+    conic-gradient(#99bace, #9aaac9, #8284e4, #9475c2)
+  );
+}
+
+.box-grad-red {
+  @include box-gradient(
+    linear-gradient(#fcf9f9, #faefef),
+    conic-gradient(#f0acac, #e99999, #d8a677, #db826c)
+  );
+}
+
+.dark {
+	.box-grad-green {
+		border: 2px double transparent;
+		background-image: linear-gradient(#141414,#141414),conic-gradient(#d0ff82,#d0ff82,#40f8c1,#d0ff82);
+		background-origin: border-box;
+		background-clip: padding-box,border-box;
+		border-radius: 8px;
+	}
+}
