@@ -54,5 +54,6 @@
   "prettier.arrowParens": "avoid",
   "prettier.trailingComma": "none",
   "prettier.htmlWhitespaceSensitivity": "ignore",
-  "editor.indentSize": "tabSize"
+  "editor.indentSize": "tabSize",
+	"editor.fontSize": 22
 }
