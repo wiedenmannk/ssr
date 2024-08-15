@@ -41,6 +41,16 @@ export class DefaultLayoutComponent {
 					routerLink: "/sammelbox",
 				},
 				{
+					label: "Überschriften",
+					icon: "pi pi-align-center",
+					routerLink: "/headlines",
+				},
+				{
+					label: "Box Variationen",
+					icon: "pi pi-palette",
+					routerLink: "/boxcollection",
+				},
+				{
 					label: "Standalone Component",
 					icon: "pi pi-bolt",
 					routerLink: "/standalone"

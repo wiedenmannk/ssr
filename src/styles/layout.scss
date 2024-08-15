@@ -8,24 +8,26 @@ main {
 	}
 }
 
-@media (min-width: 768px) { /* Ab md-Bildschirmgröße */
-	.card-container:first-child, .card-container:nth-child(3) {
+@media (min-width: 768px) {
+	/* Ab md-Bildschirmgröße */
+	.card-container:first-child,
+	.card-container:nth-child(3) {
 		padding-right: 1rem; /* Setzt das padding-right, außer für das letzte Element in der Reihe */
 	}
-/*
+	/*
 	.card-container:not(:last-child) {
 		padding-right: 1rem;
 	}
 	*/
 }
-@media (min-width: 992px) { /* Ab lg-Bildschirmgröße */
+@media (min-width: 992px) {
+	/* Ab lg-Bildschirmgröße */
 	.card-container:last-child {
 		padding-right: 0;
 	}
 	.card-container:nth-child(n):not(:last-child) {
 		padding-right: 1rem;
 	}
-
 
 	/*
 	.card-container:nth-child(3n):not(:last-child) {
@@ -36,4 +38,51 @@ main {
     padding-right: 0;
   }
 		*/
+}
+
+welcome {
+	color: cornflowerblue;
+	font-size: 20px;
+}
+
+lib-welcome {
+	.headline {
+		// color: #5b538b;
+		color: red;
+		font-size: 19px;
+	}
+}
+
+/* layer statment - define the order,
+   even if the order of the code will not be in the same way */
+@layer normalize, the-new-css-reset;
+
+/* without CSS this layer of "Normalize",
+	this style were stronger from the next style of "the-new-css-reset",
+	and this was making וnwanted conflicts
+   */
+@layer normalize {
+	/* part from CSS Normalize */
+	/*
+	h2 {
+		font-size: 2em;
+		margin: 0.67em 0;
+	}
+			 */
+}
+
+@layer the-new-css-reset {
+	/* CSS Reset here (this is select H1 as well) */
+	/*
+     *:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
+			all: unset;
+			display: revert;
+		}
+     */
+	/*
+	h2 {
+      all: unset;
+      display: revert;
+    }
+			*/
 }

@@ -9,6 +9,8 @@ import { DefaultLayoutComponent } from "./layout/default-layout/default-layout.c
 import { HomeComponent } from "./pages/home/home.component";
 import { ProductComponent } from "./components/product/product.component";
 import { TestComponent } from "./components/test/test.component";
+import { HeadlinesComponent } from "./pages/headlines/headlines.component";
+import { BoxVariationComponent } from "./pages/box-variation/box-variation.component";
 
 const routes: Routes = [
 	{
@@ -52,7 +54,23 @@ const routes: Routes = [
 					title: "Sammelbox",
 					description: "Übersicht über Sammelboxen"
 				}
-			}
+			},
+			{
+				path: "headlines",
+				component: HeadlinesComponent,
+				data: {
+					title: "Headlines",
+					description: "Übersicht über Überschriften"
+				}
+			},
+			{
+				path: "boxcollection",
+				component: BoxVariationComponent,
+				data: {
+					title: "Box Variations",
+					description: "Variationen für Boxen"
+				}
+			},
 		],
 	},
 ];

@@ -14,9 +14,11 @@ import { DataComponent } from "./components/data/data.component";
 import { ProductComponent } from "./components/product/product.component";
 import { TestComponent } from "./components/test/test.component";
 import { SammlungBoxenComponent } from './pages/sammlung-boxen/sammlung-boxen.component';
+import { HeadlinesComponent } from './pages/headlines/headlines.component';
+import { BoxVariationComponent } from './pages/box-variation/box-variation.component';
 
 @NgModule({
-	declarations: [AppComponent, DefaultLayoutComponent, HomeComponent, DataComponent, ProductComponent, TestComponent, SammlungBoxenComponent],
+	declarations: [AppComponent, DefaultLayoutComponent, HomeComponent, DataComponent, ProductComponent, TestComponent, SammlungBoxenComponent, HeadlinesComponent, BoxVariationComponent],
 	imports: [BrowserModule, AppRoutingModule, PrimengModule],
 	providers: [
 		provideClientHydration(),
