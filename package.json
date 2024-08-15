@@ -6,6 +6,7 @@
     "start": "ng serve -o --proxy-config proxy.conf.json",
     "proxy": "ng serve -o --proxy-config proxy.conf.json",
     "build": "ng build",
+		"build:stats": "ng build --stats-json",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:ssr": "node dist/ssr/server/server.mjs",
