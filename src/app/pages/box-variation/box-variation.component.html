@@ -1,11 +1,84 @@
-<div class="flex flex-wrap b-half-height">
-	<div class="w-full pt-0 pb-3 b-full-height">
-		<div class="box-grad-blue p-4 b-full-height">
-			<div class="flex flex-wrap b-full-height">
-				<div class="thru-wall w-full b-full-height"></div>
-				<p>tolle box</p>
+<ng-template #text>
+	<p>
+		Setzen Sie stattdessen auf unsere Konzepte ohne dauerhafte Lizenzkosten. Mit
+		deren Hilfe können Sie hohe Entwicklungs- und Wartungskosten bei
+		eigenentwickelter Software minimieren, so wie gleichzeitig effektiv und
+		zeitsparend dokumentieren. Das Fundament unserer Konzepte stellen gängige,
+		weitverbreite und zukunftssichere Open Source Frameworks wie Angular und
+		PrimeNG dar. Diese bieten neben einer hervorragenden Dokumentation auch eine
+		große, hilfsbereite Community von Entwicklern, die die Einarbeitung Ihrer
+		Mitarbeiter zu einem Kinderspiel macht. Selbstboss.de bietet Ihnen On Top
+		nun ein Konzept, mit dessen Hilfe Sie diese hocheffektiven Frameworks noch
+		effizienter einsetzen können. Erwarten Sie Codereduktion von bis zu 90%!
+		Dadurch erhöhen sie die Wartbarkeit Ihrer Softwarelösung, so wie die
+		Umsetzungsgeschwindigkeit Ihrer Projekte massiv. In Verbindung mit den
+		Einsparungen der Kosten für teure Softwarelösungen und Lizenzkosten bleibt
+		Ihnen mehr Spielraum für bestehende und neue Investitionen.
+	</p>
+	<p>
+		Lassen Sie uns gemeinsam Ihre Ziele verwirklichen. Machen Sie sich
+		unabhängiger von großen Tech-Konzernen und Softwarefirmen. Besuchen Sie uns
+		auf selbstboss.de und lassen Sie uns Ihnen dabei helfen, der eigene Boss
+		Ihrer Software zu sein.
+	</p>
+	<!--
+	<p>Email: <a href="mailto:kw@selbstboss.de">kw&#64;selbsboss.de</a></p>
+	<p>Telefon: +49 174 18 64 136</p>
+-->
+</ng-template>
+
+<div class="flex flex-wrap">
+	<div class="w-full pt-0 pb-3">
+		<div class="box-grad-blue p-4">
+			<div class="flex flex-wrap box-center">
+				<div class="thru-wall size_medium klaus-between"></div>
+				<div class="mini-spacer"></div>
+				<div class="w-100 text-and-pic-medium">
+					<h2 class="sb-headline-2">
+						Keine Lust auf kostspielige Softwarelizenz- und Wartungsgebühren?
+					</h2>
+					<h3 class="sb-headline-3">
+						Haben Sie genug von schlechter Dokumentation und teuren Schulungen?
+					</h3>
+
+					<ng-container [ngTemplateOutlet]="text"></ng-container>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="w-full pt-0 pb-3">
+		<div class="box-shadow-4 p-4">
+			<div class="flex flex-wrap box-center">
+				<div class="thru-wall size_medium klaus-sakko"></div>
+				<div class="mini-spacer"></div>
+				<div class="w-100 text-and-pic-medium">
+					<h2 class="sb-headline-5">
+						Keine Lust auf kostspielige Softwarelizenz- und Wartungsgebühren?
+					</h2>
+					<h3 class="sb-headline-2">
+						Haben Sie genug von schlechter Dokumentation und teuren Schulungen?
+					</h3>
+					<ng-container [ngTemplateOutlet]="text"></ng-container>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="w-full pt-0 pb-3">
+		<div class="box-shadow-6 p-4">
+			<div class="flex flex-wrap box-center">
+				<div class="thru-wall size_medium klaus-cool"></div>
+				<div class="mini-spacer"></div>
+				<div class="w-100 text-and-pic-medium">
+					<h2 class="sb-headline-0">
+						Keine Lust auf kostspielige Softwarelizenz- und Wartungsgebühren?
+					</h2>
+					<h3 class="sb-headline-1">
+						Haben Sie genug von schlechter Dokumentation und teuren Schulungen?
+					</h3>
+					<ng-container [ngTemplateOutlet]="text"></ng-container>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<img style="height: 50%; width: 33.33333%" src="/img/Klaus_1.png" />
+<!-- <img style="height: 50%; width: 33.33333%" src="/img/Klaus_1.png" /> -->

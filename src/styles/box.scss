@@ -95,3 +95,21 @@
 		border-radius: 8px;
 	}
 }
+
+.mini-spacer {
+	width: 3%;
+}
+
+// pic size medium w: 280 h: 420
+
+@media (max-width: 992px) {
+	.box-center {
+		justify-content: center;
+	}
+}
+
+@media (min-width: 992px) {
+	.text-and-pic-medium {
+		width: calc(100% - 280px - 3%);
+	}
+}
