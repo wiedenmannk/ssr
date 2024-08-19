@@ -8,6 +8,7 @@ npm install primeflex
 npm install --save-dev eslint @angular-eslint/eslint-plugin @angular-eslint/eslint-plugin-template @typescript-eslint/eslint-plugin @typescript-eslint/parser
 npm install --save-dev prettier-eslint prettier-eslint-cli
 npm install --save-dev @angular-eslint/template-parser
+npm install --save-dev eslint-plugin-prettier eslint-config-prettier
 
 npm install axios
 

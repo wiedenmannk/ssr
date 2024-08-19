@@ -4,32 +4,32 @@ import { MenuItem } from "primeng/api";
 @Component({
 	selector: "app-default-layout",
 	templateUrl: "./default-layout.component.html",
-	styleUrl: "./default-layout.component.scss"
+	styleUrl: "./default-layout.component.scss",
 })
 export class DefaultLayoutComponent {
-	items: MenuItem[] | undefined= [
+	items: MenuItem[] | undefined = [
 		{
 			label: "Home",
 			icon: "pi pi-home",
-			routerLink: "/"
+			routerLink: "/",
 		},
 		{
 			label: "TEST",
 			icon: "pi pi-star",
-			routerLink: "/test"
+			routerLink: "/test",
 		},
 		{
-			label:"Products",
+			label: "Products",
 			items: [
 				{
 					label: "Product 1",
-					routerLink: "/product/1"
+					routerLink: "/product/1",
 				},
 				{
 					label: "Product 2",
-					routerLink: "/product/2"
-				}
-			]
+					routerLink: "/product/2",
+				},
+			],
 		},
 		{
 			label: "Templates",
@@ -51,13 +51,16 @@ export class DefaultLayoutComponent {
 					routerLink: "/boxcollection",
 				},
 				{
+					label: "Box mit Angular",
+					icon: "pi pi-palette",
+					routerLink: "/boxoverview",
+				},
+				{
 					label: "Standalone Component",
 					icon: "pi pi-bolt",
-					routerLink: "/standalone"
-
+					routerLink: "/standalone",
 				},
-			]
+			],
 		},
 	];
-
 }
