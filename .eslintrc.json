@@ -1,53 +1,55 @@
 {
-  "root": true,
-  "overrides": [
-    {
-      "files": ["*.ts", "*.js"],
-      "parserOptions": {
-        "project": ["./tsconfig.json"],
-        "createDefaultProgram": true
-      },
-      "extends": [
-        "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates",
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended"
-      ],
-      "rules": {
-        "indent": ["error", "tab", { "SwitchCase": 1 }],
-        "linebreak-style": ["error", "unix"],
-        "quotes": ["warn", "double"],
-        "semi": ["error", "always"],
-        "comma-dangle": [
-          "error",
-          {
-            "arrays": "only-multiline",
-            "objects": "only-multiline",
-            "imports": "only-multiline",
-            "exports": "never",
-            "functions": "only-multiline"
-          }
-        ],
-        "no-empty": "warn",
-        "no-cond-assign": ["error", "always"],
-        "for-direction": "off",
-        "no-empty-function": "off",
-        "@typescript-eslint/no-empty-function": "off",
-        "@typescript-eslint/no-unused-vars": "warn",
-        "@typescript-eslint/no-explicit-any": "off",
-        "@angular-eslint/no-empty-lifecycle-method": "off",
-        "@typescript-eslint/explicit-function-return-type": "warn",
-        "@angular-eslint/template/eqeqeq": "off",
-        "@angular-eslint/no-output-on-prefix": "off"
-      }
-    },
-    {
-      "files": ["*.html"],
-      "extends": ["plugin:@angular-eslint/template/recommended"],
-      "rules": {
-        "@angular-eslint/template/eqeqeq": "off",
-        "indent": ["error", "tab", { "SwitchCase": 1 }]
-      }
-    }
-  ]
+	"root": true,
+	"overrides": [
+		{
+			"files": ["*.ts", "*.js"],
+			"parserOptions": {
+				"project": ["./tsconfig.json"],
+				"createDefaultProgram": true
+			},
+			"extends": [
+				"plugin:@angular-eslint/recommended",
+				"plugin:@angular-eslint/template/process-inline-templates",
+				"eslint:recommended",
+				"plugin:@typescript-eslint/recommended",
+				"plugin:prettier/recommended"
+			],
+			"rules": {
+				"prettier/prettier": ["error", { "useTabs": true, "tabWidth": 2 }],
+				// "indent": ["off", "tab", { "SwitchCase": 1 }],
+				// "no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
+				"linebreak-style": ["error", "unix"],
+				"quotes": ["warn", "double"],
+				"semi": ["error", "always"],
+				"comma-dangle": [
+					"error",
+					{
+						"arrays": "only-multiline",
+						"objects": "only-multiline",
+						"imports": "only-multiline",
+						"exports": "never",
+						"functions": "only-multiline"
+					}
+				],
+				"no-empty": "warn",
+				"no-cond-assign": ["error", "always"],
+				"for-direction": "off",
+				"no-empty-function": "off",
+				"@typescript-eslint/no-empty-function": "off",
+				"@typescript-eslint/no-unused-vars": "warn",
+				"@typescript-eslint/no-explicit-any": "off",
+				"@angular-eslint/no-empty-lifecycle-method": "off",
+				"@typescript-eslint/explicit-function-return-type": "warn",
+				"@angular-eslint/template/eqeqeq": "off",
+				"@angular-eslint/no-output-on-prefix": "off"
+			}
+		},
+		{
+			"files": ["*.html"],
+			"extends": ["plugin:@angular-eslint/template/recommended"],
+			"rules": {
+				"@angular-eslint/template/eqeqeq": "off"
+			}
+		}
+	]
 }

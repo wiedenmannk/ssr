@@ -1,0 +1,11 @@
+<div class="sb-box" [ngStyle]="style">
+	<div class="sb-box-header" *ngIf="headerTemplate">
+		<ng-container *ngTemplateOutlet="headerTemplate.template"></ng-container>
+	</div>
+	<div class="sb-box-content">
+		<ng-content></ng-content>
+	</div>
+	<div class="sb-box-footer" *ngIf="footerTemplate">
+		<ng-container *ngTemplateOutlet="footerTemplate.template"></ng-container>
+	</div>
+</div>
