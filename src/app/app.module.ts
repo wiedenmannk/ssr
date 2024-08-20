@@ -16,9 +16,12 @@ import { TestComponent } from "./components/test/test.component";
 import { SammlungBoxenComponent } from './pages/sammlung-boxen/sammlung-boxen.component';
 import { HeadlinesComponent } from './pages/headlines/headlines.component';
 import { BoxVariationComponent } from './pages/box-variation/box-variation.component';
+import { BoxComponentOverviewComponent } from './pages/box-component-overview/box-component-overview.component';
+import { BoxComponent } from './components/box/box.component';
+import { SbTemplateDirective } from './directive/sb-template.directive';
 
 @NgModule({
-	declarations: [AppComponent, DefaultLayoutComponent, HomeComponent, DataComponent, ProductComponent, TestComponent, SammlungBoxenComponent, HeadlinesComponent, BoxVariationComponent],
+	declarations: [AppComponent, DefaultLayoutComponent, HomeComponent, DataComponent, ProductComponent, TestComponent, SammlungBoxenComponent, HeadlinesComponent, BoxVariationComponent, BoxComponentOverviewComponent, BoxComponent, SbTemplateDirective],
 	imports: [BrowserModule, AppRoutingModule, PrimengModule],
 	providers: [
 		provideClientHydration(),
