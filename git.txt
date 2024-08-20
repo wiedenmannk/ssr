@@ -5,3 +5,13 @@ git remote add origin git@github.com:wiedenmannk/ssr.git
 git push -u origin main
 
 git checkout -b develop
+
+
+git . add -> Neue Dateien für merge vorbereiten
+git commit -m "so ein mist"
+git merge -> git merge in source branch
+git push -> Scheisse is geflutscht
+
+
+git checkout <BRANCH> -> Scheisse wieder Da
+git checkout -b <BRANCH> -> Scheisse neu da
