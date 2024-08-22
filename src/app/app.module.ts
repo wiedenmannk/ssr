@@ -19,9 +19,10 @@ import { BoxVariationComponent } from './pages/box-variation/box-variation.compo
 import { BoxComponentOverviewComponent } from './pages/box-component-overview/box-component-overview.component';
 import { BoxComponent } from './components/box/box.component';
 import { SbTemplateDirective } from './directive/sb-template.directive';
+import { ImpressumComponent } from './pages/impressum/impressum.component';
 
 @NgModule({
-	declarations: [AppComponent, DefaultLayoutComponent, HomeComponent, DataComponent, ProductComponent, TestComponent, SammlungBoxenComponent, HeadlinesComponent, BoxVariationComponent, BoxComponentOverviewComponent, BoxComponent, SbTemplateDirective],
+	declarations: [AppComponent, DefaultLayoutComponent, HomeComponent, DataComponent, ProductComponent, TestComponent, SammlungBoxenComponent, HeadlinesComponent, BoxVariationComponent, BoxComponentOverviewComponent, BoxComponent, SbTemplateDirective, ImpressumComponent],
 	imports: [BrowserModule, AppRoutingModule, PrimengModule],
 	providers: [
 		provideClientHydration(),

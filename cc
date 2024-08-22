@@ -18,7 +18,7 @@ WORKSPACE_PATH=$(pwd)
 cd "$WORKSPACE_PATH" || { echo "Workspace not found!"; exit 1; }
 
 # Angular CLI verwenden, um die Komponente ohne Stylesheets und Tests zu erstellen
-ng g c "$COMPONENT_NAME" --skip-tests --inline-style
+npx ng g c "$COMPONENT_NAME" --skip-tests --inline-style
 
-echo "ng g c $COMPONENT_NAME --skip-tests --inline-style"
+echo "npx ng g c $COMPONENT_NAME --skip-tests --inline-style"
 echo "Component $COMPONENT_NAME created in project $PROJECT_NAME without stylesheets and tests."
