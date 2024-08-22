@@ -18,6 +18,7 @@ import { TestComponent } from "./components/test/test.component";
 import { HeadlinesComponent } from "./pages/headlines/headlines.component";
 import { BoxVariationComponent } from "./pages/box-variation/box-variation.component";
 import { BoxComponentOverviewComponent } from "./pages/box-component-overview/box-component-overview.component";
+import { ImpressumComponent } from "./pages/impressum/impressum.component";
 
 const routes: Routes = [
 	{
@@ -86,6 +87,14 @@ const routes: Routes = [
 				data: {
 					title: "Box Komponenten",
 					description: "Nutze Angular für Boxen",
+				},
+			},
+			{
+				path: "impressum",
+				component: ImpressumComponent,
+				data: {
+					title: "Impressum",
+					description: "Dies ist das Impressum von SelbstBoss.de",
 				},
 			},
 		],

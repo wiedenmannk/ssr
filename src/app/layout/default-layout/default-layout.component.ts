@@ -62,5 +62,9 @@ export class DefaultLayoutComponent {
 				},
 			],
 		},
+		{
+			label: "Impressum",
+			routerLink: "/impressum",
+		},
 	];
 }
