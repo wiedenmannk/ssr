@@ -1,0 +1,10 @@
+<!-- invoice.component.html -->
+<div class="box-grad-green p-4">
+	<h1>Invoice {{ invoice.nummer }}</h1>
+	<p>Date: {{ invoice.date | date }}</p>
+	<p>
+		Customer: {{ invoice.customer.firstName }} {{ invoice.customer.lastName }}
+	</p>
+	<p>Total Amount: {{ invoice.summe }}</p>
+	<!-- Weitere Rechnungsdetails -->
+</div>

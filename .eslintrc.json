@@ -15,7 +15,7 @@
 				"plugin:prettier/recommended"
 			],
 			"rules": {
-				"prettier/prettier": ["error", { "useTabs": true, "tabWidth": 2 }],
+				"prettier/prettier": ["off", { "useTabs": true, "tabWidth": 2 }],
 				// "indent": ["off", "tab", { "SwitchCase": 1 }],
 				// "no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
 				"linebreak-style": ["error", "unix"],

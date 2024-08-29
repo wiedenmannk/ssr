@@ -19,6 +19,8 @@ import { HeadlinesComponent } from "./pages/headlines/headlines.component";
 import { BoxVariationComponent } from "./pages/box-variation/box-variation.component";
 import { BoxComponentOverviewComponent } from "./pages/box-component-overview/box-component-overview.component";
 import { ImpressumComponent } from "./pages/impressum/impressum.component";
+import { InvoiceOverviewComponent } from "./pages/invoice-overview/invoice-overview.component";
+import { PdfContentComponent } from "./pages/pdf-content/pdf-content.component";
 
 const routes: Routes = [
 	{
@@ -95,6 +97,22 @@ const routes: Routes = [
 				data: {
 					title: "Impressum",
 					description: "Dies ist das Impressum von SelbstBoss.de",
+				},
+			},
+			{
+				path: "e-rechnung",
+				component: InvoiceOverviewComponent,
+				data: {
+					title: "Rechnung Beispiel",
+					description: "Dies ist das Beispiel für E-Rechnung",
+				},
+			},
+			{
+				path: "pdf",
+				component: PdfContentComponent,
+				data: {
+					title: "Pdf Rechnung",
+					description: "Dies ist das Beispiel für PDF erstellung",
 				},
 			},
 		],

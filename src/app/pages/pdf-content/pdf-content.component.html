@@ -1,0 +1,17 @@
+<div id="pdf-content">
+	<h1 class="sb-headline-simple">{{ title }}</h1>
+	<div class="box-shadow-4 p-4">This content will be converted to PDF.</div>
+	<div class="box-grad-blue p-4">This content will be converted to PDF.</div>
+	<div class="steelbox-3 p-4">This content will be converted to PDF.</div>
+
+	<div style="width: 400px; height: 400px">
+		<p-chart type="pie" [data]="data" [options]="options" />
+	</div>
+	<!--
+	<div class="card">
+		<p-chart type="bar" [data]="basicData" [options]="basicOptions" />
+	</div> -->
+</div>
+<div id="button-box">
+	<p-button label="Print PDF" (onClick)="printPdf()" />
+</div>

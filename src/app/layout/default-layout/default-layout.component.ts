@@ -66,5 +66,18 @@ export class DefaultLayoutComponent {
 			label: "Impressum",
 			routerLink: "/impressum",
 		},
+		{
+			label: "Rechnungen",
+			items: [
+				{
+					label: "Beispiel Rechnung",
+					routerLink: "e-rechnung",
+				},
+				{
+					label: "PDF View",
+					routerLink: "pdf",
+				},
+			],
+		},
 	];
 }

@@ -58,5 +58,5 @@
 	"prettier.htmlWhitespaceSensitivity": "ignore",
 	"editor.indentSize": "tabSize",
 	"editor.tabCompletion": "on",
-	"editor.fontSize": 24
+	"editor.fontSize": 14
 }

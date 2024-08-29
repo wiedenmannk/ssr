@@ -7,32 +7,40 @@
 }
 	*/
 
-	@mixin gradient-text($gradient) {
-		display: inline-block; /* Wichtig: Macht das Element block-level */
-		background: $gradient;
-		-webkit-text-fill-color: transparent;
-		background-clip: text; // Standard-Eigenschaft für zukünftige Unterstützung
-		color: transparent; // Fallback für Nicht-WebKit-Browser
-	}
+@mixin gradient-text($gradient) {
+	display: inline-block; /* Wichtig: Macht das Element block-level */
+	background: $gradient;
+	-webkit-text-fill-color: transparent;
+	background-clip: text; // Standard-Eigenschaft für zukünftige Unterstützung
+	color: transparent; // Fallback für Nicht-WebKit-Browser
+}
 
-	.sb-headline-0 {
-		@include gradient-text(linear-gradient(90deg, #16cc95a6 5%, #bae675af 85%));
-	}
-	.sb-headline-1 {
-		@include gradient-text(linear-gradient(90deg, #165fcc 15%, #49aabb 50%, #864ae6));
-	}
+.sb-headline-0 {
+	@include gradient-text(linear-gradient(90deg, #16cc95a6 5%, #bae675af 85%));
+}
+.sb-headline-1 {
+	@include gradient-text(
+		linear-gradient(90deg, #165fcc 15%, #49aabb 50%, #864ae6)
+	);
+}
 
-	.sb-headline-2 {
-		@include gradient-text(linear-gradient(90deg, #043c8f 15%, #165d69 50%, #492e74));
-	}
+.sb-headline-2 {
+	@include gradient-text(
+		linear-gradient(90deg, #043c8f 15%, #165d69 50%, #492e74)
+	);
+}
 
-	.sb-headline-3 {
-		@include gradient-text(linear-gradient(90deg, #c40404 ,#918200 60%, #8a1161));
-	}
+.sb-headline-3 {
+	@include gradient-text(linear-gradient(90deg, #c40404, #918200 60%, #8a1161));
+}
 
-	.sb-headline-4 {
-		@include gradient-text(linear-gradient(90deg, #0f0f0f ,#535353, #353333));
-	}
-	.sb-headline-5 {
-		@include gradient-text(linear-gradient(90deg, #3f6c81 ,#3e7437, #643366));
-	}
+.sb-headline-4 {
+	@include gradient-text(linear-gradient(90deg, #0f0f0f, #535353, #353333));
+}
+.sb-headline-5 {
+	@include gradient-text(linear-gradient(90deg, #3f6c81, #3e7437, #643366));
+}
+
+.sb-headline-simple {
+	color: blue;
+}
