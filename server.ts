@@ -1,4 +1,5 @@
 import express from "express";
+import bodyParser from "body-parser";
 import { fileURLToPath } from "node:url";
 import { dirname, join, resolve } from "node:path";
 import nocache from "nocache";
@@ -6,7 +7,9 @@ import axios from "axios";
 import { existsSync, writeFileSync, mkdirSync } from "fs";
 import { CommonEngineService } from "@service/server/common-engine.service";
 import logger from "@service/server/logger";
+import multer from "multer";
 
+const upload = multer();
 
 function getRandomInt(max: number): number {
 	return Math.floor(Math.random() * max);
@@ -20,6 +23,10 @@ export function app(): express.Express {
 	const browserDistFolder = resolve(serverDistFolder, "../browser");
 	const indexHtml = join(serverDistFolder, "index.server.html");
 
+	server.use(bodyParser.json()); // For parsing application/json
+	server.use(bodyParser.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
+	// server.use(bodyParser());
+
 	// const commonEngine = new CommonEngine();
 	const commonEngineService = new CommonEngineService();
 	commonEngineService.setBrowserDistFolder(browserDistFolder);
@@ -31,7 +38,7 @@ export function app(): express.Express {
 	server.get("/api/home", (req, res) => {
 		console.log("call /api/home");
 		const welcome = {
-			welcome: "Hello from Node.js Server"
+			welcome: "Hello from Node.js Server",
 		};
 		res.json(welcome);
 	});
@@ -40,13 +47,13 @@ export function app(): express.Express {
 	server.get("/api/ptest", async (req, res) => {
 		try {
 			const response = await axios.get("http://localhost:4000/product/1", {
-				headers: { "Accept": "text/html" }
+				headers: { Accept: "text/html" },
 			});
 			const pageContent = response.data;
 
 			// Verzeichnis 'files' erstellen, falls es nicht existiert
 			const dir = join(process.cwd(), "files");
-			if (!existsSync(dir)){
+			if (!existsSync(dir)) {
 				mkdirSync(dir);
 			}
 
@@ -56,60 +63,95 @@ export function app(): express.Express {
 
 			// Hier könnte man eine Prüfung des Inhalts durchführen
 			if (pageContent.includes("Erwarteter Inhalt")) {
-				res.status(200).send("Test erfolgreich und Inhalt in test.html geschrieben!");
+				res
+					.status(200)
+					.send("Test erfolgreich und Inhalt in test.html geschrieben!");
 			} else {
-				res.status(500).send("Test fehlgeschlagen, aber Inhalt in test.html geschrieben.");
+				res
+					.status(500)
+					.send("Test fehlgeschlagen, aber Inhalt in test.html geschrieben.");
 			}
 		} catch (error) {
-			res.status(500).send("Fehler beim Abrufen der Seite: " + (error as Error).message);
+			res
+				.status(500)
+				.send("Fehler beim Abrufen der Seite: " + (error as Error).message);
 		}
 	});
 
+	// Einfacher Endpunkt zum Empfangen von Daten
+	server.post("/api/simple-endpoint", (req, res) => {
+		console.log("Request Body:", req.body);
+		console.log("req.files", req.files);
+		res.send("Data received successfully");
+	});
 
+	// Endpunkt zum Empfangen von Formular-Daten
+	server.post("/api/submit-form", (req, res) => {
+		console.log("Form Data:", req.body); // Logge die Formulardaten
+		res.send("Form submitted successfully");
+	});
 
-	// Route for fetching product data from Python server
+	server.post(
+		"/api/generate-zugferd",
+		upload.single("file"),
+		async (req, res) => {
+			const url = `http://127.0.0.1:5000${req.originalUrl}`;
+			console.log(`Forwarding request to: ${url}`);
 
-	server.get("/api/products/:id", async (req, res) => {
-		const productId = req.params.id;
+			console.log("req files", req.files);
+			console.log("Request Body:", req.body);
 
-		console.log("call product api productId " + productId);
-		// logger.info("call product api productId " + productId);
+			try {
+				const response = await axios({
+					method: req.method,
+					url,
+					headers: req.headers,
+					data: req.body,
+					params: req.method === "GET" ? req.query : undefined,
+				});
+				res.status(response.status).json(response.data);
+			} catch (error) {
+				console.error("Error forwarding request to Python server:", error);
+				res.status(500).json({
+					error: "Failed to forward request to Python server",
+					details: (error as Error).message,
+				});
+			}
+		},
+	);
+
+	// Proxy to python server
+	server.all("/api/*", async (req, res) => {
+		const url = `http://127.0.0.1:5000${req.originalUrl}`;
+		console.log(`Forwarding request to: ${url}`);
+
 		try {
-			const response = await axios.get(`http://127.0.0.1:5000/api/product/${productId}`);
-			console.log("product api product data", response.data);
-			res.json(response.data);
+			console.log("Request Headers:", req.headers);
+			console.log("Request Body:", req.body);
+
+			const response = await axios({
+				method: req.method,
+				url,
+				headers: req.headers,
+				data: req.method === "POST" ? req.body : undefined,
+				params: req.method === "GET" ? req.query : undefined,
+			});
+
+			console.log("Response Status:", response.status);
+			console.log("Response Data:", response.data);
+
+			res.status(response.status).json(response.data);
 		} catch (error: unknown) {
-			console.error("Error fetching product data from Python server:", error);
+			console.error("Error forwarding request to Python server:", error);
 			if (error instanceof Error) {
 				res.status(500).json({
-					error: "Failed to fetch product data from Python server",
+					error: "Failed to forward request to Python server",
 					details: error.message,
 				});
 			} else {
 				res.status(500).json({
-					error: "Failed to fetch product data from Python server",
+					error: "Failed to forward request to Python server",
 					details: "Unknown error",
-				});
-			}
-		}
-	});
-
-	// Route for fetching data from Python server
-	server.get("/api/data", async (req, res) => {
-		try {
-			const response = await axios.get("http://127.0.0.1:5000/api/data");
-			res.json(response.data);
-		} catch (error: unknown) {
-			console.error("Error fetching data from Python server:", error);
-			if (error instanceof Error) {
-				res.status(500).json({
-					error: "Failed to fetch data from Python server",
-					details: error.message
-				});
-			} else {
-				res.status(500).json({
-					error: "Failed to fetch data from Python server",
-					details: "Unknown error"
 				});
 			}
 		}
@@ -118,8 +160,8 @@ export function app(): express.Express {
 	server.get(
 		"**",
 		express.static(browserDistFolder, {
-			maxAge: "1y"
-		})
+			maxAge: "1y",
+		}),
 	);
 	// index: "index.html",
 
@@ -129,15 +171,13 @@ export function app(): express.Express {
 		const { protocol, originalUrl, baseUrl, headers } = req;
 		// console.log("request", req);
 		console.log("path", req.path);
-		if(req.path.indexOf("/product/") !== -1) {
+		if (req.path.indexOf("/product/") !== -1) {
 			const params = req.path.split("/");
 			console.log("params", params);
 			console.log("product found");
 		}
 		commonEngineService.start(req, res);
 		// productData = await ProductService.getProductData(productId);
-
-
 	});
 
 	return server;

@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit } from "@angular/core";
 import { PlatformService } from "@service/platform.service";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Component({
 	selector: "sb-pdf-content",
@@ -16,10 +17,15 @@ export class PdfContentComponent implements AfterViewInit, OnInit {
 
 	options: any;
 
-	constructor(private ps: PlatformService) {}
+	constructor(
+		private ps: PlatformService,
+		private http: HttpClient,
+	) {}
 
 	ngOnInit(): void {
-		this.renderPie();
+		if (this.ps.isBrowser()) {
+			this.renderPie();
+		}
 	}
 
 	renderPie(): void {
@@ -122,9 +128,23 @@ export class PdfContentComponent implements AfterViewInit, OnInit {
 
 	ngAfterViewInit(): void {}
 
-	async generatePDF(): Promise<void> {
+	sendData(): void {
+		const data: any = { x: 1 };
+		const headers = new HttpHeaders({ "Content-Type": "application/json" });
+		this.http.post("/api/simple-endpoint", data, { headers }).subscribe(
+			(response) => {
+				console.log("Data successfully sent:", response);
+			},
+			(error) => {
+				console.error("Error sending data:", error);
+			},
+		);
+	}
+
+	async generatePDF(): Promise<Blob | null> {
 		const html2pdf = (await import("html2pdf.js")).default;
 		const element = document.getElementById("pdf-content");
+
 		if (element) {
 			const options = {
 				margin: 1,
@@ -134,13 +154,65 @@ export class PdfContentComponent implements AfterViewInit, OnInit {
 				jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
 			};
 
-			html2pdf().from(element).set(options).save();
+			return new Promise((resolve, reject) => {
+				html2pdf()
+					.from(element)
+					.set(options)
+					.toPdf()
+					.get("pdf")
+					.then((pdf: any) => {
+						const blob = pdf.output("blob");
+						console.log("PDF Blob generated successfully");
+						resolve(blob);
+					})
+					.catch((error: any) => {
+						console.error("Error generating PDF:", error);
+						reject(error);
+					});
+			});
+		}
+
+		console.error("Element with id 'pdf-content' not found");
+		return null;
+	}
+
+	async printPdf(): Promise<void> {
+		if (this.ps.isBrowser()) {
+			const pdfBlob = await this.generatePDF();
+			console.log("pdfBlob", pdfBlob);
+			if (pdfBlob) {
+				const url = URL.createObjectURL(pdfBlob);
+				const a = document.createElement("a");
+				a.href = url;
+				a.download = "example.pdf";
+				a.click();
+				URL.revokeObjectURL(url);
+			}
 		}
 	}
 
-	printPdf(): void {
+	async exportPdf(): Promise<void> {
 		if (this.ps.isBrowser()) {
-			this.generatePDF();
+			const pdfBlob = await this.generatePDF();
+			if (pdfBlob) {
+				console.log("pdfBlob", pdfBlob);
+				// Erstelle eine File-Instanz aus dem Blob
+				const file = new File([pdfBlob], "example.pdf", {
+					type: "application/pdf",
+				});
+
+				const data: any = { pdf_file: pdfBlob };
+				console.log("data", data);
+
+				this.http.post("/api/generate-zugferd", data).subscribe(
+					(response: any) => {
+						console.log("PDF successfully exported:", response);
+					},
+					(error) => {
+						console.error("Error exporting PDF:", error);
+					},
+				);
+			}
 		}
 	}
 }

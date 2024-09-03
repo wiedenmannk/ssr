@@ -14,4 +14,10 @@
 </div>
 <div id="button-box">
 	<p-button label="Print PDF" (onClick)="printPdf()" />
+	<p-button label="Export PDF" (onClick)="exportPdf()" />
+	<p-button label="send data" (onClick)="sendData()" />
 </div>
+<form action="/api/submit-form" method="POST">
+	<input type="hidden" name="hiddenData" value="12345" />
+	<button type="submit">Submit Form</button>
+</form>
