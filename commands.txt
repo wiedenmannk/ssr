@@ -17,4 +17,15 @@ npm i nocache
 chmod 775 cc
 chmod 775 cs
 
-npm install winston
+npm install winston?
+
+npm install nodemon --save-dev
+npm install @types/node --save-dev
+npm install ts-node --save-dev
+
+winston => wird für logger benutzt
+
+remove check ob die noch gebraucht werden
+"@types/multer": "^1.4.12",?
+multer?
+xhr2?

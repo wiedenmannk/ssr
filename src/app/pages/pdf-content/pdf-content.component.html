@@ -1,6 +1,6 @@
 <div id="pdf-content">
 	<h1 class="sb-headline-simple">{{ title }}</h1>
-	<div class="box-shadow-4 p-4">This content will be converted to PDF.</div>
+	<div class="box-shadow-4 p-4">This content will be converted to PDF2.</div>
 	<div class="box-grad-blue p-4">This content will be converted to PDF.</div>
 	<div class="steelbox-3 p-4">This content will be converted to PDF.</div>
 
@@ -17,7 +17,3 @@
 	<p-button label="Export PDF" (onClick)="exportPdf()" />
 	<p-button label="send data" (onClick)="sendData()" />
 </div>
-<form action="/api/submit-form" method="POST">
-	<input type="hidden" name="hiddenData" value="12345" />
-	<button type="submit">Submit Form</button>
-</form>

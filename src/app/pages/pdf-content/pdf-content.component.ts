@@ -129,7 +129,7 @@ export class PdfContentComponent implements AfterViewInit, OnInit {
 	ngAfterViewInit(): void {}
 
 	sendData(): void {
-		const data: any = { x: 1 };
+		const data: any = { x: 2 };
 		const headers = new HttpHeaders({ "Content-Type": "application/json" });
 		this.http.post("/api/simple-endpoint", data, { headers }).subscribe(
 			(response) => {
@@ -197,14 +197,22 @@ export class PdfContentComponent implements AfterViewInit, OnInit {
 			if (pdfBlob) {
 				console.log("pdfBlob", pdfBlob);
 				// Erstelle eine File-Instanz aus dem Blob
+
+				const formData = new FormData();
+				formData.append("pdf_file", pdfBlob, "example.pdf");
+				formData.append("xxx", "222");
+
 				const file = new File([pdfBlob], "example.pdf", {
 					type: "application/pdf",
 				});
 
-				const data: any = { pdf_file: pdfBlob };
+				const data: any = {
+					x: "21",
+					pdf_file: file,
+				};
 				console.log("data", data);
 
-				this.http.post("/api/generate-zugferd", data).subscribe(
+				this.http.post("/api/generate-zugferd", formData).subscribe(
 					(response: any) => {
 						console.log("PDF successfully exported:", response);
 					},

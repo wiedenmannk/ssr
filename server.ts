@@ -5,26 +5,20 @@ import { dirname, join, resolve } from "node:path";
 import nocache from "nocache";
 import axios from "axios";
 import { existsSync, writeFileSync, mkdirSync } from "fs";
-import { CommonEngineService } from "@service/server/common-engine.service";
-import logger from "@service/server/logger";
-import multer from "multer";
-
-const upload = multer();
-
-function getRandomInt(max: number): number {
-	return Math.floor(Math.random() * max);
-}
+import { CommonEngineService } from "server/service/common-engine.service";
+import { router as zugferdRouter } from "./server/routes/route-zugferd";
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
 	const server = express();
+	server.use(express.json({ limit: "15mb" })); // Für große Datenmengen
+	server.use(express.urlencoded({ extended: true, limit: "15mb" }));
 	server.use(nocache());
+	server.use(bodyParser.json()); // For parsing application/json
+	server.use(bodyParser.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
 	const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 	const browserDistFolder = resolve(serverDistFolder, "../browser");
 	const indexHtml = join(serverDistFolder, "index.server.html");
-
-	server.use(bodyParser.json()); // For parsing application/json
-	server.use(bodyParser.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
 	// server.use(bodyParser());
 
 	// const commonEngine = new CommonEngine();
@@ -32,13 +26,15 @@ export function app(): express.Express {
 	commonEngineService.setBrowserDistFolder(browserDistFolder);
 	commonEngineService.setIndexHtml(indexHtml);
 
+	server.use("/api", zugferdRouter);
+
 	server.set("view engine", "html");
 	server.set("views", browserDistFolder);
 
 	server.get("/api/home", (req, res) => {
 		console.log("call /api/home");
 		const welcome = {
-			welcome: "Hello from Node.js Server",
+			welcome: "Hello from Node.js Server!",
 		};
 		res.json(welcome);
 	});
@@ -90,35 +86,6 @@ export function app(): express.Express {
 		console.log("Form Data:", req.body); // Logge die Formulardaten
 		res.send("Form submitted successfully");
 	});
-
-	server.post(
-		"/api/generate-zugferd",
-		upload.single("file"),
-		async (req, res) => {
-			const url = `http://127.0.0.1:5000${req.originalUrl}`;
-			console.log(`Forwarding request to: ${url}`);
-
-			console.log("req files", req.files);
-			console.log("Request Body:", req.body);
-
-			try {
-				const response = await axios({
-					method: req.method,
-					url,
-					headers: req.headers,
-					data: req.body,
-					params: req.method === "GET" ? req.query : undefined,
-				});
-				res.status(response.status).json(response.data);
-			} catch (error) {
-				console.error("Error forwarding request to Python server:", error);
-				res.status(500).json({
-					error: "Failed to forward request to Python server",
-					details: (error as Error).message,
-				});
-			}
-		},
-	);
 
 	// Proxy to python server
 	server.all("/api/*", async (req, res) => {

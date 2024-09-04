@@ -1,0 +1,6 @@
+{
+	"watch": ["dist/ssr/server"],
+	"ext": "ts,mjs",
+	"ignore": ["node_modules"],
+	"exec": ["node dist/ssr/server/server.mjs"]
+}

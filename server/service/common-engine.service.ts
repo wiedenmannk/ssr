@@ -1,26 +1,33 @@
 import { APP_BASE_HREF } from "@angular/common";
 import { CommonEngine } from "@angular/ssr";
-import AppServerModule from "../../../main.server";
+import AppServerModule from "../../src/main.server";
 import express from "express";
 import { APP_ID } from "@angular/core";
 
-
 export class CommonEngineService {
 	public commonEngine = new CommonEngine();
-	private indexHtml? :string ;
-	private browserDistFolder? :string ;
-	private nextFunction: express.NextFunction = (err:any)=> { console.log("Rendering Engine Error",err); return err;};
+	private indexHtml?: string;
+	private browserDistFolder?: string;
+	private nextFunction: express.NextFunction = (err: any) => {
+		console.log("Rendering Engine Error", err);
+		return err;
+	};
 
-	public start(req: any,res: any, indexHtml?:string, browserDistFolder?:string): void {
+	public start(
+		req: any,
+		res: any,
+		indexHtml?: string,
+		browserDistFolder?: string,
+	): void {
 		const { protocol, originalUrl, baseUrl, headers } = req;
-		if(!indexHtml) {
-			if(!this.indexHtml)	{
+		if (!indexHtml) {
+			if (!this.indexHtml) {
 				console.warn("no indexHtml for CommonEngineService");
 			}
 			indexHtml = this.indexHtml;
 		}
-		if(!browserDistFolder) {
-			if(!this.browserDistFolder)	{
+		if (!browserDistFolder) {
+			if (!this.browserDistFolder) {
 				console.warn("no browserDistFolder for CommonEngineService");
 			}
 			browserDistFolder = this.browserDistFolder;
@@ -50,12 +57,11 @@ export class CommonEngineService {
 		}
 	}
 
-	public setIndexHtml(indexHtml: string):void {
+	public setIndexHtml(indexHtml: string): void {
 		this.indexHtml = indexHtml;
 	}
 
-	public setBrowserDistFolder(browserDistFolder:string):void {
+	public setBrowserDistFolder(browserDistFolder: string): void {
 		this.browserDistFolder = browserDistFolder;
 	}
 }
-
