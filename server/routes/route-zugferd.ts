@@ -1,7 +1,7 @@
 import express from "express";
 import axios from "axios";
 import multer from "multer";
-import { Buffer } from "buffer";
+import { writeFile } from "fs/promises";
 
 const upload = multer(); // Nutze multer, um Dateien als Buffer zu verarbeiten
 
@@ -29,6 +29,14 @@ router.post(
 				xml_content: xmlContent,
 			};
 
+			/*
+			const base64String: string = data.pdf_content;
+			const filePath: string = "test/pdfBase64.txt";
+			saveBase64StringAsText(base64String, filePath);
+			*/
+
+			console.log("prepaire data", data);
+
 			const response = await axios.post(url, data, {
 				headers: {
 					"Content-Type": "application/json",
@@ -46,3 +54,12 @@ router.post(
 		}
 	},
 );
+
+async function saveBase64StringAsText(base64String: string, filePath: string) {
+	try {
+		await writeFile(filePath, base64String, "utf8");
+		console.log("Datei wurde erfolgreich geschrieben.");
+	} catch (err) {
+		console.error("Fehler beim Schreiben der Datei:", err);
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"target": "ES6", // JavaScript-Version, die du ausgeben möchtest
+		"module": "NodeNext", // Modul-System als ES Module
+		"outDir": "./dist/test", // Ausgabe-Verzeichnis für kompilierte JS-Dateien
+		"rootDir": "./test", // Root-Verzeichnis für die Eingabedateien
+		"strict": true, // Strikte Typ-Prüfung
+		"esModuleInterop": true, // Ermöglicht den Import von CommonJS-Modulen mit `import`
+		"skipLibCheck": true, // Überspringt die Typprüfung von Definitionen in `node_modules`
+		"forceConsistentCasingInFileNames": true, // Erzwingt konsistente Dateinamen
+		"moduleResolution": "nodenext" // Änderung der Modulauflösung auf 'nodenext'
+	},
+	"include": ["./test/**/*.ts"], // Eingeschlossene Dateien (alle .ts-Dateien im src/test-Verzeichnis)
+	"exclude": ["node_modules"] // Ausgeschlossene Verzeichnisse
+}
