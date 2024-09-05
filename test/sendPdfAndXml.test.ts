@@ -1,22 +1,26 @@
 import path from "path";
 import { fileURLToPath } from "url";
-import fs from "fs";
+import fs from "fs/promises"; // Nutze fs.promises für Promises-basierte Methode
 import axios from "axios";
 
 // __dirname und __filename für ES-Module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const host = "http://localhost:5000";
+const pyApi = "/api/save-pdf-and-xml";
+const api = `${host}${pyApi}`;
+
+const pyApi2 = "/api/generate-zugferd";
+const api2 = `${host}${pyApi2}`;
+
 // Die Funktion, die den PDF- und XML-Content sendet
-async function sendPdfAndXml(pdfBase64: string, xmlContent: string) {
+async function sendPdfAndXml(api: string, pdfBase64: any, xmlContent: any) {
 	try {
-		const response = await axios.post(
-			"http://localhost:5000/api/generate-zugferd",
-			{
-				pdf_content: pdfBase64,
-				xml_content: xmlContent,
-			},
-		);
+		const response = await axios.post(api, {
+			pdf_content: pdfBase64,
+			xml_content: xmlContent,
+		});
 
 		return response;
 	} catch (error) {
@@ -33,12 +37,35 @@ async function loadTestData() {
 	return { pdfBase64, xmlContent };
 }
 
+// Testdaten laden - Dateien von Disk lesen
+async function loadTestData2() {
+	try {
+		const pdfPath = path.resolve(__dirname, "pdfBase64.txt"); // Pfad zur PDF-Datei
+		const xmlPath = path.resolve(__dirname, "zugferd.xml"); // Pfad zur XML-Datei
+
+		// Dateien asynchron lesen
+		const pdfBuffer = await fs.readFile(pdfPath, "utf8");
+		const xmlContent = await fs.readFile(xmlPath, "utf8");
+
+		return { pdfBase64: pdfBuffer, xmlContent };
+	} catch (error) {
+		console.error("Error loading test data:", error);
+		throw error;
+	}
+}
+
 // Test ausführen
 async function runTest() {
 	try {
 		const { pdfBase64, xmlContent } = await loadTestData();
-		const response = await sendPdfAndXml(pdfBase64, xmlContent);
-		console.log("Response:", response.data);
+		const response = await sendPdfAndXml(api2, pdfBase64, xmlContent);
+
+		// Lade Testdaten aus Dateien
+		const data = await loadTestData2();
+		// const response2 = await sendPdfAndXml(api, data.pdfBase64, data.xmlContent);
+
+		// console.log("Response:", response.data);
+		// console.log("Response 2:", response2.data);
 	} catch (error) {
 		console.error("Test failed:", error);
 	}
