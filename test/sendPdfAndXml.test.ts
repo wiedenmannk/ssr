@@ -15,11 +15,11 @@ const pyApi2 = "/api/generate-zugferd";
 const api2 = `${host}${pyApi2}`;
 
 // Die Funktion, die den PDF- und XML-Content sendet
-async function sendPdfAndXml(api: string, pdfBase64: any, xmlContent: any) {
+async function sendPdfAndJson(api: string, pdfBase64: any, json_data: any) {
 	try {
 		const response = await axios.post(api, {
 			pdf_content: pdfBase64,
-			xml_content: xmlContent,
+			invoice: json_data,
 		});
 
 		return response;
@@ -41,13 +41,22 @@ async function loadTestData() {
 async function loadTestData2() {
 	try {
 		const pdfPath = path.resolve(__dirname, "pdfBase64.txt"); // Pfad zur PDF-Datei
-		const xmlPath = path.resolve(__dirname, "zugferd.xml"); // Pfad zur XML-Datei
+		// const xmlPath = path.resolve(__dirname, "zugferd.xml"); // Pfad zur XML-Datei
+		const json_data = {
+			name: "Klaus",
+			lastName: "Wiedenmann",
+			summary: "10000",
+			bill: {
+				no: "1",
+				date: "2024-09-01",
+			},
+		};
 
 		// Dateien asynchron lesen
 		const pdfBuffer = await fs.readFile(pdfPath, "utf8");
-		const xmlContent = await fs.readFile(xmlPath, "utf8");
+		// const xmlContent = await fs.readFile(xmlPath, "utf8");
 
-		return { pdfBase64: pdfBuffer, xmlContent };
+		return { pdfBase64: pdfBuffer, json_data };
 	} catch (error) {
 		console.error("Error loading test data:", error);
 		throw error;
@@ -57,15 +66,19 @@ async function loadTestData2() {
 // Test ausführen
 async function runTest() {
 	try {
-		const { pdfBase64, xmlContent } = await loadTestData();
-		const response = await sendPdfAndXml(api2, pdfBase64, xmlContent);
+		// const { pdfBase64, xmlContent } = await loadTestData();
+		// const response = await sendPdfAndXml(api2, pdfBase64, xmlContent);
 
 		// Lade Testdaten aus Dateien
 		const data = await loadTestData2();
-		// const response2 = await sendPdfAndXml(api, data.pdfBase64, data.xmlContent);
+		const response2 = await sendPdfAndJson(
+			api2,
+			data.pdfBase64,
+			data.json_data,
+		);
 
 		// console.log("Response:", response.data);
-		// console.log("Response 2:", response2.data);
+		console.log("Response 2:", response2.data);
 	} catch (error) {
 		console.error("Test failed:", error);
 	}

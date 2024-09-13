@@ -10,6 +10,7 @@
 		"build": "ng build",
 		"build:stats": "ng build --stats-json",
 		"build:test": "npx tsc -p tsconfig.node.json && sh copy_test_files.sh",
+		"build:test:run": "npm run build:test && npm run test:p64",
 		"watch": "ng build --watch --configuration development",
 		"test": "ng test",
 		"test:p64": "node dist/test/sendPdfAndXml.test.js",
