@@ -200,14 +200,25 @@ export class PdfContentComponent implements AfterViewInit, OnInit {
 
 				const formData = new FormData();
 				formData.append("pdf_file", pdfBlob, "example.pdf");
-				formData.append("xxx", "222");
+
+				const json_data = {
+					name: "Klaus",
+					lastName: "Wiedenmann",
+					summary: "10000",
+					bill: {
+						no: "1",
+						date: "2024-09-01",
+					},
+				};
+
+				formData.append("json_data", JSON.stringify(json_data));
 
 				const file = new File([pdfBlob], "example.pdf", {
 					type: "application/pdf",
 				});
 
 				const data: any = {
-					x: "21",
+					json_data: json_data,
 					pdf_file: file,
 				};
 				console.log("data", data);

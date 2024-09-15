@@ -18,7 +18,7 @@ router.post(
 
 		try {
 			const pdfBuffer = req.file?.buffer;
-			const xmlContent = req.body.xml_content;
+			const json_data = JSON.parse(req.body.json_data);
 
 			if (!pdfBuffer) {
 				return res.status(400).json({ error: "PDF file is missing" });
@@ -26,7 +26,7 @@ router.post(
 
 			const data = {
 				pdf_content: pdfBuffer.toString("base64"),
-				xml_content: xmlContent,
+				invoice: json_data,
 			};
 
 			/*
