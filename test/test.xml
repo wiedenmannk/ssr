@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsm:CrossIndustryInvoice xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100"
+                          xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100"
+                          xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100"
+                          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                          xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100">
+
+    <!-- ExchangedDocumentContext muss vorhanden sein -->
+    <rsm:ExchangedDocumentContext>
+        <ram:GuidelineSpecifiedDocumentContextParameter>
+            <ram:ID>urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:extended</ram:ID>
+        </ram:GuidelineSpecifiedDocumentContextParameter>
+    </rsm:ExchangedDocumentContext>
+
+    <!-- ExchangedDocument muss vorhanden sein -->
+    <rsm:ExchangedDocument>
+        <!-- Hier kommen die erforderlichen Elemente für ExchangedDocument -->
+        <ram:ID>INV12345</ram:ID>
+        <ram:IssueDateTime>
+            <udt:DateTimeString format="102">20240918</udt:DateTimeString>
+        </ram:IssueDateTime>
+        <ram:TypeCode>380</ram:TypeCode>
+        <ram:DocumentCurrencyCode>EUR</ram:DocumentCurrencyCode>
+    </rsm:ExchangedDocument>
+
+    <!-- Weitere Pflichtinhalte -->
+    <rsm:SupplyChainTradeTransaction>
+        <ram:ApplicableHeaderTradeAgreement>
+            <ram:SellerTradeParty>
+                <ram:Name>Mustermann GmbH</ram:Name>
+                <ram:PostalTradeAddress>
+                    <ram:StreetName>Main Street</ram:StreetName>
+                    <ram:BuildingNumber>123</ram:BuildingNumber>
+                    <ram:CityName>Sample City</ram:CityName>
+                    <ram:PostalZone>12345</ram:PostalZone>
+                    <ram:CountryID>DE</ram:CountryID>
+                </ram:PostalTradeAddress>
+            </ram:SellerTradeParty>
+            <ram:BuyerTradeParty>
+                <ram:Name>Example Buyer</ram:Name>
+                <ram:PostalTradeAddress>
+                    <ram:StreetName>Another Street</ram:StreetName>
+                    <ram:BuildingNumber>456</ram:BuildingNumber>
+                    <ram:CityName>Buyer City</ram:CityName>
+                    <ram:PostalZone>67890</ram:PostalZone>
+                    <ram:CountryID>DE</ram:CountryID>
+                </ram:PostalTradeAddress>
+            </ram:BuyerTradeParty>
+        </ram:ApplicableHeaderTradeAgreement>
+        <ram:ApplicableHeaderTradeSettlement>
+            <ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>
+        </ram:ApplicableHeaderTradeSettlement>
+    </rsm:SupplyChainTradeTransaction>
+
+</rsm:CrossIndustryInvoice>

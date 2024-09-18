@@ -14,6 +14,7 @@
 		"watch": "ng build --watch --configuration development",
 		"test": "ng test",
 		"test:p64": "node dist/test/sendPdfAndXml.test.js",
+		"test:v": "node dist/test/validator.js",
 		"serve:ssr:ssr": "node dist/ssr/server/server.mjs",
 		"ssr": "node dist/ssr/server/server.mjs",
 		"serve:ssr:main": "node dist/ssr/server/main.server.mjs",

@@ -7,6 +7,6 @@ fi
 
 # Dateien kopieren
 cp test/pdfBase64.txt dist/test/
-cp test/zugferd.xml dist/test/  # Beispiel für eine XML-Datei
+cp test/*.xml dist/test/  # Beispiel für eine XML-Datei
 
 echo "Testdateien wurden erfolgreich in den dist/test-Ordner kopiert."

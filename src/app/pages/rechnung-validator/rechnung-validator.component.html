@@ -1,0 +1,20 @@
+<p-toast></p-toast>
+
+<form (ngSubmit)="onSubmit()" #uploadForm="ngForm">
+	<p-fileUpload
+		name="file"
+		chooseLabel="Wählen Sie eine Datei"
+		(onUpload)="onFileSelect($event)"
+		customUpload="true"
+		mode="basic"
+		accept=".xml"
+	>
+	</p-fileUpload>
+
+	<button
+		pButton
+		type="submit"
+		label="Datei hochladen"
+		[disabled]="!selectedFile"
+	></button>
+</form>

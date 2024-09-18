@@ -22,7 +22,11 @@ import { SbTemplateDirective } from "./directive/sb-template.directive";
 import { ImpressumComponent } from "./pages/impressum/impressum.component";
 import { InvoiceOverviewComponent } from "./pages/invoice-overview/invoice-overview.component";
 import { DatePipe } from "@angular/common";
-import { PdfContentComponent } from './pages/pdf-content/pdf-content.component';
+import { PdfContentComponent } from "./pages/pdf-content/pdf-content.component";
+import { RechnungValidatorComponent } from "./pages/rechnung-validator/rechnung-validator.component";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { SbFormsModule } from "@modules/sb-forms.module";
+import { MessageService } from "primeng/api";
 
 @NgModule({
 	declarations: [
@@ -40,14 +44,22 @@ import { PdfContentComponent } from './pages/pdf-content/pdf-content.component';
 		SbTemplateDirective,
 		ImpressumComponent,
 		InvoiceOverviewComponent,
-  PdfContentComponent,
+		PdfContentComponent,
+		RechnungValidatorComponent,
 	],
-	imports: [BrowserModule, AppRoutingModule, PrimengModule],
+	imports: [
+		BrowserModule,
+		BrowserAnimationsModule,
+		AppRoutingModule,
+		PrimengModule,
+		SbFormsModule,
+	],
 	providers: [
 		provideClientHydration(),
 		provideHttpClient(),
 		{ provide: APP_ID, useValue: "ssr_hydra" },
 		DatePipe,
+		MessageService,
 	],
 	bootstrap: [AppComponent],
 })

@@ -21,6 +21,7 @@ import { BoxComponentOverviewComponent } from "./pages/box-component-overview/bo
 import { ImpressumComponent } from "./pages/impressum/impressum.component";
 import { InvoiceOverviewComponent } from "./pages/invoice-overview/invoice-overview.component";
 import { PdfContentComponent } from "./pages/pdf-content/pdf-content.component";
+import { RechnungValidatorComponent } from "./pages/rechnung-validator/rechnung-validator.component";
 
 const routes: Routes = [
 	{
@@ -113,6 +114,14 @@ const routes: Routes = [
 				data: {
 					title: "Pdf Rechnung",
 					description: "Dies ist das Beispiel für PDF erstellung",
+				},
+			},
+			{
+				path: "validator",
+				component: RechnungValidatorComponent,
+				data: {
+					title: "Rechnung Validator",
+					description: "Zugferd Rechnung Validator",
 				},
 			},
 		],
