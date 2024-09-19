@@ -1,12 +1,11 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Component, ViewChild } from "@angular/core";
-import { MessageService } from "primeng/api";
+import { Component, model, ViewChild } from "@angular/core";
 import {
 	FileSelectEvent,
 	FileUpload,
 	FileUploadEvent,
-	FileUploadHandlerEvent,
 } from "primeng/fileupload";
+import { toaster } from "@service/toaster";
 
 @Component({
 	selector: "sb-rechnung-validator",
@@ -18,19 +17,7 @@ export class RechnungValidatorComponent {
 	@ViewChild("fileUpload") fileUpload?: FileUpload;
 	validatorFile?: File;
 
-	constructor(
-		private ms: MessageService,
-		private http: HttpClient,
-	) {}
-
-	onUpload(event: FileUploadEvent): void {
-		console.log("files", event.files);
-		this.ms.add({
-			severity: "info",
-			summary: "Success",
-			detail: "File Uploaded with Basic Mode",
-		});
-	}
+	constructor(private http: HttpClient) {}
 
 	onFileChange(event: FileSelectEvent): void {
 		if (this.fileUpload) {
@@ -64,7 +51,7 @@ export class RechnungValidatorComponent {
 		this.http.post("/api/validate", formData).subscribe(
 			(response: any) => {
 				console.log("File send successfully:", response);
-				this.ms.add({
+				toaster.next({
 					severity: "info",
 					summary: "Success",
 					detail: "File Uploaded success",
@@ -72,7 +59,7 @@ export class RechnungValidatorComponent {
 			},
 			(error: HttpErrorResponse) => {
 				console.error("Error sending File:", error);
-				this.ms.add({
+				toaster.next({
 					severity: "error",
 					summary: "Error",
 					detail: `File Uploaded failed ${error.error.error} ${error.error.details}`,

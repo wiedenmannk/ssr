@@ -1,7 +1,4 @@
-<p-toast></p-toast>
-
 <div class="card flex justify-content-center">
-	<p-toast />
 	<p-fileUpload
 		#fileUpload
 		mode="basic"
@@ -10,8 +7,7 @@
 		name="xml_content"
 		url="/api/validate"
 		accept=".xml, .pdf"
-		maxFileSize="1000000"
-		(onUpload)="onUpload($event)"
+		maxFileSize="1500000"
 		(onSelect)="onFileChange($event)"
 		[auto]="false"
 	/>
