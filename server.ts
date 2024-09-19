@@ -96,6 +96,8 @@ export function app(): express.Express {
 			console.log("Request Headers:", req.headers);
 			console.log("Request Body:", req.body);
 
+			console.log("request method", req.method);
+
 			const response = await axios({
 				method: req.method,
 				url,
@@ -127,7 +129,7 @@ export function app(): express.Express {
 	server.get(
 		"**",
 		express.static(browserDistFolder, {
-			maxAge: "1y",
+			maxAge: "36000",
 		}),
 	);
 	// index: "index.html",

@@ -1,5 +1,12 @@
-import { Component } from "@angular/core";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { Component, ViewChild } from "@angular/core";
 import { MessageService } from "primeng/api";
+import {
+	FileSelectEvent,
+	FileUpload,
+	FileUploadEvent,
+	FileUploadHandlerEvent,
+} from "primeng/fileupload";
 
 @Component({
 	selector: "sb-rechnung-validator",
@@ -8,54 +15,69 @@ import { MessageService } from "primeng/api";
 })
 export class RechnungValidatorComponent {
 	selectedFile: File | null = null;
+	@ViewChild("fileUpload") fileUpload?: FileUpload;
+	validatorFile?: File;
 
-	constructor(private ms: MessageService) {}
+	constructor(
+		private ms: MessageService,
+		private http: HttpClient,
+	) {}
 
-	onFileSelect(event: any) {
-		// Der FileUploader speichert die Datei in selectedFile
-		this.selectedFile = event.files[0];
-		let fileName = "no file";
-		if (this.selectedFile) {
-			fileName = this.selectedFile.name;
-		}
+	onUpload(event: FileUploadEvent): void {
+		console.log("files", event.files);
 		this.ms.add({
 			severity: "info",
-			summary: "Datei ausgewählt",
-			detail: fileName,
+			summary: "Success",
+			detail: "File Uploaded with Basic Mode",
 		});
 	}
 
-	onSubmit() {
-		if (this.selectedFile) {
-			// Hier implementierst du die Logik zum Verschicken der Datei
-			// Zum Beispiel: Senden der Datei an einen Server
-			this.sendFile(this.selectedFile);
+	onFileChange(event: FileSelectEvent): void {
+		if (this.fileUpload) {
+			console.log("clear");
+			const eventFileUpload = event.originalEvent.target as unknown;
+			const fileUpload: FileUpload = eventFileUpload as FileUpload;
+			console.log("event target", fileUpload);
+			console.log("event files", fileUpload.files);
+			// das event.originalEvent.target ist das FileUpload
+			console.log("files");
+			event.currentFiles[0].arrayBuffer().then((data: ArrayBuffer) => {
+				console.log("fileData", data);
+			});
+			const myFile: File = this.fileUpload.files[0];
+			this.validatorFile = myFile;
+			console.log("fiĺeUpload content", myFile);
+			this.fileUpload.clear();
+			console.log("file still exists", myFile);
 		}
 	}
 
-	sendFile(file: File) {
+	submit(): void {
 		const formData = new FormData();
-		formData.append("file", file);
-
-		// Hier musst du deine URL zum Server angeben
-		fetch("https://example.com/upload", {
-			method: "POST",
-			body: formData,
-		})
-			.then((response) => response.json())
-			.then((data) => {
+		if (this.validatorFile) {
+			formData.append(
+				"xml_content",
+				this.validatorFile,
+				this.validatorFile.name,
+			);
+		}
+		this.http.post("/api/validate", formData).subscribe(
+			(response: any) => {
+				console.log("File send successfully:", response);
 				this.ms.add({
-					severity: "success",
-					summary: "Erfolg",
-					detail: "Datei erfolgreich hochgeladen",
+					severity: "info",
+					summary: "Success",
+					detail: "File Uploaded success",
 				});
-			})
-			.catch((error) => {
+			},
+			(error: HttpErrorResponse) => {
+				console.error("Error sending File:", error);
 				this.ms.add({
 					severity: "error",
-					summary: "Fehler",
-					detail: "Fehler beim Hochladen der Datei",
+					summary: "Error",
+					detail: `File Uploaded failed ${error.error.error} ${error.error.details}`,
 				});
-			});
+			},
+		);
 	}
 }

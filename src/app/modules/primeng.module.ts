@@ -1,4 +1,3 @@
-import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 
 import { ButtonModule } from "primeng/button";
@@ -19,7 +18,7 @@ const modules = [
 
 @NgModule({
 	declarations: [],
-	imports: [CommonModule, ...modules],
+	imports: [],
 	exports: [modules],
 })
 export class PrimengModule {}

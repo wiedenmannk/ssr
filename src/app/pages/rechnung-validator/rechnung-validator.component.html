@@ -1,20 +1,24 @@
 <p-toast></p-toast>
 
-<form (ngSubmit)="onSubmit()" #uploadForm="ngForm">
+<div class="card flex justify-content-center">
+	<p-toast />
 	<p-fileUpload
-		name="file"
-		chooseLabel="Wählen Sie eine Datei"
-		(onUpload)="onFileSelect($event)"
-		customUpload="true"
+		#fileUpload
 		mode="basic"
-		accept=".xml"
-	>
-	</p-fileUpload>
-
-	<button
-		pButton
-		type="submit"
-		label="Datei hochladen"
-		[disabled]="!selectedFile"
-	></button>
-</form>
+		chooseLabel="Choose"
+		chooseIcon="pi pi-upload"
+		name="xml_content"
+		url="/api/validate"
+		accept=".xml, .pdf"
+		maxFileSize="1000000"
+		(onUpload)="onUpload($event)"
+		(onSelect)="onFileChange($event)"
+		[auto]="false"
+	/>
+</div>
+@if (validatorFile) {
+	<div>File {{ validatorFile.name }} ready to validate</div>
+	<div class="button-box">
+		<p-button label="Validate" (onClick)="submit()" />
+	</div>
+}

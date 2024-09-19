@@ -7,6 +7,8 @@ const upload = multer(); // Nutze multer, um Dateien als Buffer zu verarbeiten
 
 export const router = express.Router();
 
+console.log("wathme");
+
 router.post(
 	"/generate-zugferd",
 	upload.single("pdf_file"),
@@ -54,6 +56,26 @@ router.post(
 		}
 	},
 );
+
+router.post("/validate", upload.single("xml_content"), async (req, res) => {
+	console.log("call route /api/validate");
+	console.log("call post /api/generate-zugferd");
+	const url = `http://127.0.0.1:5000${req.originalUrl}`;
+	console.log(`Forwarding request to: ${url}`);
+	console.log("body", req.body);
+	const file: Express.Multer.File | undefined = req.file;
+	if (file) {
+		//TODO: check mimetype for "text/xml" or pdf
+		const fileBuffer = file.buffer;
+		console.log("fileName", file.originalname);
+		console.log("size", file.size);
+		console.log("file", file);
+	} else {
+		return res.status(400).json({ error: "file is missing" });
+	}
+
+	return res.status(200).json({ message: "ok" });
+});
 
 async function saveBase64StringAsText(base64String: string, filePath: string) {
 	try {
