@@ -6,6 +6,8 @@ import { CardModule } from "primeng/card";
 import { ChartModule } from "primeng/chart";
 import { FileUploadModule } from "primeng/fileupload";
 import { ToastModule } from "primeng/toast";
+import { ProgressSpinnerModule } from "primeng/progressspinner";
+import { TableModule } from "primeng/table";
 
 const modules = [
 	ButtonModule,
@@ -14,6 +16,8 @@ const modules = [
 	ChartModule,
 	FileUploadModule,
 	ToastModule,
+	ProgressSpinnerModule,
+	TableModule,
 ];
 
 @NgModule({

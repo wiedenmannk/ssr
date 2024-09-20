@@ -1,20 +1,57 @@
-<div class="card flex justify-content-center">
-	<p-fileUpload
-		#fileUpload
-		mode="basic"
-		chooseLabel="Choose"
-		chooseIcon="pi pi-upload"
-		name="xml_content"
-		url="/api/validate"
-		accept=".xml, .pdf"
-		maxFileSize="1500000"
-		(onSelect)="onFileChange($event)"
-		[auto]="false"
-	/>
-</div>
-@if (validatorFile) {
+@if (!isLoading) {
+	<div class="card flex justify-content-center">
+		<p-fileUpload
+			#fileUpload
+			mode="basic"
+			chooseLabel="Choose"
+			chooseIcon="pi pi-upload"
+			name="xml_content"
+			accept=".xml, .pdf"
+			maxFileSize="1500000"
+			(onSelect)="onFileChange($event)"
+			[auto]="false"
+		/>
+	</div>
+}
+
+@if (validatorFile && !isLoading) {
 	<div>File {{ validatorFile.name }} ready to validate</div>
 	<div class="button-box">
 		<p-button label="Validate" (onClick)="submit()" />
 	</div>
 }
+
+<!-- PrimeNG Loading Spinner -->
+<p-progressSpinner
+	*ngIf="isLoading"
+	styleClass="w-4rem h-4rem"
+	strokeWidth="8"
+	fill="var(--surface-ground)"
+	animationDuration=".5s"
+></p-progressSpinner>
+
+<div *ngIf="validationResult && !isLoading">
+	<p-table [value]="result">
+		<ng-template pTemplate="header">
+			<tr>
+				<th>Type</th>
+				<th>Data</th>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="body" let-result>
+			<tr>
+				<td>{{ result.key }}</td>
+				<td>
+					@if (result.key === "output") {
+						<pre>
+							{{ result.value }}
+						</pre
+						>
+					} @else {
+						{{ result.value }}
+					}
+				</td>
+			</tr>
+		</ng-template>
+	</p-table>
+</div>

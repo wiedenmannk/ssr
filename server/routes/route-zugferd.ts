@@ -64,17 +64,53 @@ router.post("/validate", upload.single("xml_content"), async (req, res) => {
 	console.log(`Forwarding request to: ${url}`);
 	console.log("body", req.body);
 	const file: Express.Multer.File | undefined = req.file;
-	if (file) {
-		//TODO: check mimetype for "text/xml" or pdf
-		const fileBuffer = file.buffer;
-		console.log("fileName", file.originalname);
-		console.log("size", file.size);
-		console.log("file", file);
-	} else {
-		return res.status(400).json({ error: "file is missing" });
-	}
+	let data;
+	try {
+		if (file) {
+			//TODO: check mimetype for "text/xml" or pdf
+			const fileBuffer = file.buffer;
+			console.log("fileName", file.originalname);
+			console.log("size", file.size);
+			console.log("file", file);
+			data = {
+				xml_content: file,
+			};
+		} else {
+			return res.status(400).json({ error: "file is missing" });
+		}
 
-	return res.status(200).json({ message: "ok" });
+		if (data) {
+			console.log("prepaire data", data);
+
+			const response = await axios.post(url, data, {
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+
+			// Weitergabe der Antwort des Python-Servers
+			let rp;
+			try {
+				rp = JSON.parse(response.data);
+			} catch (err: any) {
+				console.log("data has no json Format", err);
+				rp = response.data;
+			}
+
+			return res.status(response.status).json(rp);
+		} else {
+			return res.status(500).json({
+				error: "no data found",
+				details: "data for server request not set",
+			});
+		}
+	} catch (error) {
+		console.error("Error forwarding request to Python server:", error);
+		return res.status((error as any).response?.status || 500).json({
+			error: "Failed to forward request to Python server",
+			details: (error as Error).message,
+		});
+	}
 });
 
 async function saveBase64StringAsText(base64String: string, filePath: string) {

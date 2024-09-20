@@ -1,11 +1,8 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Component, model, ViewChild } from "@angular/core";
-import {
-	FileSelectEvent,
-	FileUpload,
-	FileUploadEvent,
-} from "primeng/fileupload";
+import { Component, ViewChild } from "@angular/core";
+import { FileSelectEvent, FileUpload } from "primeng/fileupload";
 import { toaster } from "@service/toaster";
+import { ValidatorResult } from "@model/valdiator-result";
 
 @Component({
 	selector: "sb-rechnung-validator",
@@ -15,56 +12,75 @@ import { toaster } from "@service/toaster";
 export class RechnungValidatorComponent {
 	selectedFile: File | null = null;
 	@ViewChild("fileUpload") fileUpload?: FileUpload;
-	validatorFile?: File;
+	validatorFile?: File | null;
+	isLoading = false; // Variable für den Spinner
+	validationResult: ValidatorResult | null = null; // Speichert das Validierungsergebnis
+	result: Array<{ key: string; value: any }> = [];
 
 	constructor(private http: HttpClient) {}
 
 	onFileChange(event: FileSelectEvent): void {
 		if (this.fileUpload) {
-			console.log("clear");
 			const eventFileUpload = event.originalEvent.target as unknown;
 			const fileUpload: FileUpload = eventFileUpload as FileUpload;
-			console.log("event target", fileUpload);
-			console.log("event files", fileUpload.files);
-			// das event.originalEvent.target ist das FileUpload
-			console.log("files");
-			event.currentFiles[0].arrayBuffer().then((data: ArrayBuffer) => {
-				console.log("fileData", data);
-			});
 			const myFile: File = this.fileUpload.files[0];
 			this.validatorFile = myFile;
-			console.log("fiĺeUpload content", myFile);
 			this.fileUpload.clear();
-			console.log("file still exists", myFile);
 		}
 	}
 
 	submit(): void {
-		const formData = new FormData();
-		if (this.validatorFile) {
-			formData.append(
-				"xml_content",
-				this.validatorFile,
-				this.validatorFile.name,
-			);
+		if (!this.validatorFile) {
+			return;
 		}
+		if (this.fileUpload) {
+			this.fileUpload.clear();
+		}
+
+		this.isLoading = true; // Spinner anzeigen
+
+		const formData = new FormData();
+		formData.append("xml_content", this.validatorFile, this.validatorFile.name);
+		this.result = [];
+
 		this.http.post("/api/validate", formData).subscribe(
 			(response: any) => {
-				console.log("File send successfully:", response);
+				this.validationResult = response as ValidatorResult; // Validierungsergebnis speichern
 				toaster.next({
 					severity: "info",
 					summary: "Success",
-					detail: "File Uploaded success",
+					detail: "File Uploaded successfully",
 				});
+				this.validatorFile = null;
+				this.isLoading = false; // Spinner ausblenden
+				this.result = this.getTableData(this.validationResult);
+				console.log("result", this.result);
+				console.log("validationResult", this.validationResult);
 			},
 			(error: HttpErrorResponse) => {
-				console.error("Error sending File:", error);
 				toaster.next({
 					severity: "error",
 					summary: "Error",
-					detail: `File Uploaded failed ${error.error.error} ${error.error.details}`,
+					detail: `File Upload failed ${error.error.error} ${error.error.details}`,
 				});
+				this.isLoading = false; // Spinner ausblenden
 			},
 		);
+	}
+
+	getTableData(
+		validatorResult: ValidatorResult,
+	): Array<{ key: string; value: any }> {
+		const result: Array<{ key: string; value: any }> = [];
+
+		// Verwenden von Object.keys, um alle Schlüssel korrekt zu durchlaufen
+		for (const key of Object.keys(validatorResult)) {
+			result.push({
+				key,
+				value: validatorResult[key as keyof ValidatorResult],
+			});
+		}
+
+		return result;
 	}
 }
