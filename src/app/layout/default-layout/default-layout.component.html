@@ -4,6 +4,17 @@
 			<img src="img/Selbstboss_60x60px.svg" alt="Logo" class="logo" />
 		</a>
 	</ng-template>
+	<ng-template pTemplate="end">
+		<div class="flex align-items-center gap-2">
+			<p-button label="Login" (onClick)="navigate('login')" />
+			<p-button
+				label="registrieren"
+				severity="secondary"
+				(onClick)="navigate('register')"
+			/>
+			<!-- <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" /> -->
+		</div>
+	</ng-template>
 </p-menubar>
 <main>
 	<router-outlet></router-outlet>

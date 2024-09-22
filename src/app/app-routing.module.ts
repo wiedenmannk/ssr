@@ -22,6 +22,7 @@ import { ImpressumComponent } from "./pages/impressum/impressum.component";
 import { InvoiceOverviewComponent } from "./pages/invoice-overview/invoice-overview.component";
 import { PdfContentComponent } from "./pages/pdf-content/pdf-content.component";
 import { RechnungValidatorComponent } from "./pages/rechnung-validator/rechnung-validator.component";
+import { LoginComponent } from "./pages/login/login.component";
 
 const routes: Routes = [
 	{
@@ -122,6 +123,22 @@ const routes: Routes = [
 				data: {
 					title: "Rechnung Validator",
 					description: "Zugferd Rechnung Validator",
+				},
+			},
+			{
+				path: "register",
+				component: LoginComponent,
+				data: {
+					title: "Registrierung",
+					description: "E-Bill Solution Registrierung",
+				},
+			},
+			{
+				path: "login",
+				component: LoginComponent,
+				data: {
+					title: "Login",
+					description: "E-Bill Solution Login",
 				},
 			},
 		],

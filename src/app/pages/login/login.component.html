@@ -1,0 +1,83 @@
+<div class="p-d-flex p-jc-center p-ai-center p-flex-column p-mt-5">
+	<h2 class="p-mb-3">{{ isRegisterMode ? "Registrieren" : "Login" }}</h2>
+	<form
+		[formGroup]="form"
+		(ngSubmit)="onSubmit()"
+		class="p-fluid p-d-flex p-flex-column p-ai-center"
+		style="max-width: 350px; width: 90%"
+	>
+		<div class="p-field mb-3 space-top-block">
+			<label for="username">Benutzername</label>
+			<input
+				id="username"
+				type="text"
+				pInputText
+				formControlName="username"
+				placeholder="Benutzername"
+			/>
+			<small
+				*ngIf="
+					form.controls['username'].invalid && form.controls['username'].touched
+				"
+				class="p-error"
+			>
+				Benutzername ist erforderlich.
+			</small>
+		</div>
+
+		<div class="p-field p-mb-3 space-top-block">
+			<label for="password">Passwort</label>
+			<p-password
+				id="password"
+				formControlName="password"
+				feedback="false"
+				placeholder="Passwort"
+			></p-password>
+			<small
+				*ngIf="
+					form.controls['password'].invalid && form.controls['password'].touched
+				"
+				class="p-error"
+			>
+				Passwort ist erforderlich.
+			</small>
+		</div>
+
+		<!-- Passwort-Wiederholung nur im Registrierungsmodus anzeigen -->
+		<div class="p-field p-mb-3 space-top-block" *ngIf="isRegisterMode">
+			<label for="confirmPassword">Passwort wiederholen</label>
+			<p-password
+				id="confirmPassword"
+				formControlName="confirmPassword"
+				feedback="false"
+				placeholder="Passwort wiederholen"
+			></p-password>
+			<small
+				*ngIf="
+					form.controls['confirmPassword'].invalid &&
+					form.controls['confirmPassword'].touched
+				"
+				class="p-error"
+			>
+				Passwort-Wiederholung ist erforderlich.
+			</small>
+		</div>
+
+		<button
+			pButton
+			type="submit"
+			label="{{ isRegisterMode ? 'Registrieren' : 'Login' }}"
+			class="p-button-rounded p-mt-2"
+			[disabled]="form.invalid"
+		></button>
+
+		<!-- Link zum Umschalten zwischen Login und Registrierung -->
+		<p (click)="toggleMode()" class="toggle-link p-mt-3">
+			{{
+				isRegisterMode
+					? "Bereits registriert? Login"
+					: "Noch keinen Account? Registrieren"
+			}}
+		</p>
+	</form>
+</div>

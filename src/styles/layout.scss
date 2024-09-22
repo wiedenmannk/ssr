@@ -106,3 +106,21 @@ html {
 .w-100 {
 	width: 100%;
 }
+
+.d-block {
+	display: block; /* Setzt Elemente als Block dar, um Margins zu nutzen */
+}
+
+.d-inline-block {
+	display: inline-block;
+}
+
+.space-top-inline *:nth-child(n) {
+	display: inline-block;
+	margin-top: 0.5rem;
+}
+
+.space-top-block *:nth-child(n) {
+	display: block;
+	margin-top: 0.5rem;
+}

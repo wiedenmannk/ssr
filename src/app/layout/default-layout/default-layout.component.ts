@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { MenuItem } from "primeng/api";
 import { menu } from "@model/menu";
+import { Router } from "@angular/router";
 
 @Component({
 	selector: "app-default-layout",
@@ -9,4 +10,10 @@ import { menu } from "@model/menu";
 })
 export class DefaultLayoutComponent {
 	menuItems: MenuItem[] | undefined = menu;
+
+	constructor(private router: Router) {}
+
+	navigate(url: string): void {
+		this.router.navigate([url]);
+	}
 }

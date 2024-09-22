@@ -27,6 +27,7 @@ import { RechnungValidatorComponent } from "./pages/rechnung-validator/rechnung-
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { SbFormsModule } from "@modules/sb-forms.module";
 import { MessageService } from "primeng/api";
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
 	declarations: [
@@ -46,6 +47,7 @@ import { MessageService } from "primeng/api";
 		InvoiceOverviewComponent,
 		PdfContentComponent,
 		RechnungValidatorComponent,
+  LoginComponent,
 	],
 	imports: [
 		BrowserModule,

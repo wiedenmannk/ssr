@@ -8,6 +8,8 @@ import { FileUploadModule } from "primeng/fileupload";
 import { ToastModule } from "primeng/toast";
 import { ProgressSpinnerModule } from "primeng/progressspinner";
 import { TableModule } from "primeng/table";
+import { PasswordModule } from "primeng/password";
+import { InputTextModule } from "primeng/inputtext";
 
 const modules = [
 	ButtonModule,
@@ -18,6 +20,8 @@ const modules = [
 	ToastModule,
 	ProgressSpinnerModule,
 	TableModule,
+	PasswordModule,
+	InputTextModule,
 ];
 
 @NgModule({
