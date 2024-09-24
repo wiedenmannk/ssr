@@ -16,6 +16,13 @@ export class ToasterService {
 			detail: `${detail} ${error.error.error} ${error.error.details}`,
 		});
 	}
+	public addSuccess(detail: string): void {
+		this.toaster.next({
+			severity: "info",
+			summary: "Success",
+			detail: detail,
+		});
+	}
 }
 
 export const toasterService = new ToasterService();

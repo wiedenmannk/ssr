@@ -73,6 +73,7 @@ export class LoginComponent implements OnInit {
 			this.http.post("/api/register", this.form.value).subscribe({
 				next: (respone: any) => {
 					console.log("response", respone);
+					toasterService.addSuccess("Benutzer erfolgreich angelegt");
 				},
 				error: (error: HttpErrorResponse) => {
 					console.error("error", error);
