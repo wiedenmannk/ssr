@@ -27,7 +27,10 @@ import { RechnungValidatorComponent } from "./pages/rechnung-validator/rechnung-
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { SbFormsModule } from "@modules/sb-forms.module";
 import { MessageService } from "primeng/api";
-import { LoginComponent } from './pages/login/login.component';
+import { LoginComponent } from "./pages/login/login.component";
+import { InvoiceListComponent } from "./pages/invoice-list/invoice-list.component";
+import { CustomerService } from "@service/customer.service";
+import { DialogComponent } from './pages/dialog/dialog.component';
 
 @NgModule({
 	declarations: [
@@ -47,7 +50,9 @@ import { LoginComponent } from './pages/login/login.component';
 		InvoiceOverviewComponent,
 		PdfContentComponent,
 		RechnungValidatorComponent,
-  LoginComponent,
+		LoginComponent,
+		InvoiceListComponent,
+  DialogComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -62,6 +67,7 @@ import { LoginComponent } from './pages/login/login.component';
 		{ provide: APP_ID, useValue: "ssr_hydra" },
 		DatePipe,
 		MessageService,
+		CustomerService,
 	],
 	bootstrap: [AppComponent],
 })

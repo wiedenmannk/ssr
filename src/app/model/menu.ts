@@ -7,7 +7,7 @@ export const menu: MenuItem[] | undefined = [
 		routerLink: "/",
 	},
 	{
-		label: "TEST",
+		label: "Agenda",
 		icon: "pi pi-star",
 		routerLink: "/test",
 	},
@@ -53,6 +53,11 @@ export const menu: MenuItem[] | undefined = [
 				icon: "pi pi-bolt",
 				routerLink: "/standalone",
 			},
+			{
+				label: "dialog",
+				icon: "pi pi-bolt",
+				routerLink: "/dialog",
+			},
 		],
 	},
 	{
@@ -73,6 +78,10 @@ export const menu: MenuItem[] | undefined = [
 			{
 				label: "Rechnungs Validator",
 				routerLink: "validator",
+			},
+			{
+				label: "Rechnungsübersicht",
+				routerLink: "invoice-list",
 			},
 		],
 	},

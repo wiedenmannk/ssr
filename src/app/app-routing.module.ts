@@ -23,6 +23,8 @@ import { InvoiceOverviewComponent } from "./pages/invoice-overview/invoice-overv
 import { PdfContentComponent } from "./pages/pdf-content/pdf-content.component";
 import { RechnungValidatorComponent } from "./pages/rechnung-validator/rechnung-validator.component";
 import { LoginComponent } from "./pages/login/login.component";
+import { InvoiceListComponent } from "./pages/invoice-list/invoice-list.component";
+import { DialogComponent } from "./pages/dialog/dialog.component";
 
 const routes: Routes = [
 	{
@@ -94,6 +96,14 @@ const routes: Routes = [
 				},
 			},
 			{
+				path: "dialog",
+				component: DialogComponent,
+				data: {
+					title: "Dialog Beispiel",
+					description: "Zeigt ein Responsive Dialog an",
+				},
+			},
+			{
 				path: "impressum",
 				component: ImpressumComponent,
 				data: {
@@ -123,6 +133,14 @@ const routes: Routes = [
 				data: {
 					title: "Rechnung Validator",
 					description: "Zugferd Rechnung Validator",
+				},
+			},
+			{
+				path: "invoice-list",
+				component: InvoiceListComponent,
+				data: {
+					title: "Rechnung Übersicht",
+					description: "Eine Liste mit Rechnungen",
 				},
 			},
 			{

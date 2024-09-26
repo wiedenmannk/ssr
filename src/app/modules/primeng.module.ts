@@ -10,6 +10,13 @@ import { ProgressSpinnerModule } from "primeng/progressspinner";
 import { TableModule } from "primeng/table";
 import { PasswordModule } from "primeng/password";
 import { InputTextModule } from "primeng/inputtext";
+import { TagModule } from "primeng/tag";
+import { IconFieldModule } from "primeng/iconfield";
+import { InputIconModule } from "primeng/inputicon";
+import { MultiSelectModule } from "primeng/multiselect";
+import { DropdownModule } from "primeng/dropdown";
+import { DialogModule } from "primeng/dialog";
+import { AccordionModule } from "primeng/accordion";
 
 const modules = [
 	ButtonModule,
@@ -22,6 +29,13 @@ const modules = [
 	TableModule,
 	PasswordModule,
 	InputTextModule,
+	TagModule,
+	IconFieldModule,
+	InputIconModule,
+	MultiSelectModule,
+	DropdownModule,
+	DialogModule,
+	AccordionModule,
 ];
 
 @NgModule({
