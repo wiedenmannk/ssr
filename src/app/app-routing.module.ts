@@ -25,6 +25,7 @@ import { RechnungValidatorComponent } from "./pages/rechnung-validator/rechnung-
 import { LoginComponent } from "./pages/login/login.component";
 import { InvoiceListComponent } from "./pages/invoice-list/invoice-list.component";
 import { DialogComponent } from "./pages/dialog/dialog.component";
+import { CompanyComponent } from "./pages/company/company.component";
 
 const routes: Routes = [
 	{
@@ -143,6 +144,15 @@ const routes: Routes = [
 					description: "Eine Liste mit Rechnungen",
 				},
 			},
+			{
+				path: "stammdaten",
+				component: CompanyComponent,
+				data: {
+					title: "Stammdaten",
+					description: "Hier tragen wir Stammdaten für Rechnungen ein",
+				},
+			},
+
 			{
 				path: "register",
 				component: LoginComponent,

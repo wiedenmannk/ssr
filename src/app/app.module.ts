@@ -30,8 +30,8 @@ import { MessageService } from "primeng/api";
 import { LoginComponent } from "./pages/login/login.component";
 import { InvoiceListComponent } from "./pages/invoice-list/invoice-list.component";
 import { CustomerService } from "@service/customer.service";
-import { DialogComponent } from './pages/dialog/dialog.component';
-import { CompanyComponent } from './pages/company/company.component';
+import { DialogComponent } from "./pages/dialog/dialog.component";
+import { CompanyComponent } from "./pages/company/company.component";
 
 @NgModule({
 	declarations: [
@@ -53,8 +53,8 @@ import { CompanyComponent } from './pages/company/company.component';
 		RechnungValidatorComponent,
 		LoginComponent,
 		InvoiceListComponent,
-  DialogComponent,
-  CompanyComponent,
+		DialogComponent,
+		CompanyComponent,
 	],
 	imports: [
 		BrowserModule,

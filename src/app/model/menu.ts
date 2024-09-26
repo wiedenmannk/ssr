@@ -83,6 +83,10 @@ export const menu: MenuItem[] | undefined = [
 				label: "Rechnungsübersicht",
 				routerLink: "invoice-list",
 			},
+			{
+				label: "Tamaras Company",
+				routerLink: "stammdaten",
+			},
 		],
 	},
 ];
