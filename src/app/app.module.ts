@@ -31,6 +31,7 @@ import { LoginComponent } from "./pages/login/login.component";
 import { InvoiceListComponent } from "./pages/invoice-list/invoice-list.component";
 import { CustomerService } from "@service/customer.service";
 import { DialogComponent } from './pages/dialog/dialog.component';
+import { CompanyComponent } from './pages/company/company.component';
 
 @NgModule({
 	declarations: [
@@ -53,6 +54,7 @@ import { DialogComponent } from './pages/dialog/dialog.component';
 		LoginComponent,
 		InvoiceListComponent,
   DialogComponent,
+  CompanyComponent,
 	],
 	imports: [
 		BrowserModule,
